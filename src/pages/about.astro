@@ -1,0 +1,318 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "Обо мне",
+    subtitle: "Биогеография, GIS и работа с Африкой"
+  },
+  en: {
+    title: "About",
+    subtitle: "Biogeography, GIS and Africa focus"
+  },
+  fr: {
+    title: "À propos",
+    subtitle: "Biogéographie, SIG et travail en Afrique"
+  }
+};
+
+const content = {
+  ru: {
+    sections: [
+      {
+        title: "Кто я",
+        text: "Образование, МГУ, нефтянка, GIS, интерес к Африке."
+      },
+      {
+        title: "Что я делаю",
+        text: "QGIS, карты, PDF, анализ, Python, spatial analysis."
+      },
+      {
+        title: "Куда иду",
+        text: "Сахель, ресурсы, гуманитарные миссии."
+      }
+    ],
+    galleryTitles: ["Фото 1", "Фото 2"],
+    docsTitle: "CV",
+    docsOpen: "Открыть PDF",
+    notesTitle: "Notes",
+    notes: [
+      "GIS как инструмент решений",
+      "Фокус на Африке",
+      "Полевой и прикладной подход"
+    ]
+  },
+  en: {
+    sections: [
+      {
+        title: "Who I am",
+        text: "Education, MSU, oil sector, GIS, Africa focus."
+      },
+      {
+        title: "What I do",
+        text: "QGIS, maps, PDF, analysis, Python, spatial analysis."
+      },
+      {
+        title: "Where I am heading",
+        text: "Sahel, resources, humanitarian missions."
+      }
+    ],
+    galleryTitles: ["Photo 1", "Photo 2"],
+    docsTitle: "CV",
+    docsOpen: "Open PDF",
+    notesTitle: "Notes",
+    notes: [
+      "GIS as a decision tool",
+      "Africa focus",
+      "Applied field work"
+    ]
+  },
+  fr: {
+    sections: [
+      {
+        title: "Qui je suis",
+        text: "Formation, MGU, pétrole, SIG, Afrique."
+      },
+      {
+        title: "Ce que je fais",
+        text: "QGIS, cartes, PDF, analyse, Python."
+      },
+      {
+        title: "Où je vais",
+        text: "Sahel, ressources, missions humanitaires."
+      }
+    ],
+    galleryTitles: ["Photo 1", "Photo 2"],
+    docsTitle: "CV",
+    docsOpen: "Ouvrir le PDF",
+    notesTitle: "Notes",
+    notes: [
+      "SIG comme outil",
+      "Focus Afrique",
+      "Approche terrain"
+    ]
+  }
+};
+
+const gallery = [
+  {
+    src: "/assets/about/images/ghana.png"
+  },
+  {
+    src: "/assets/about/images/img2.png"
+  }
+];
+
+const docs = [
+  {
+    file: "/assets/about/docs/cv.pdf"
+  }
+];
+---
+
+<SiteLayout pageTranslations={pageTranslations}>
+  <style>
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .about-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .about-card h2,
+    .about-card h3 {
+      margin-top: 0;
+      color: #1d3d67;
+    }
+
+    .about-card p {
+      margin-bottom: 0;
+      line-height: 1.75;
+      color: #425b78;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .gallery-card {
+      background: white;
+      border: 1px solid #dde5ed;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 12px 14px;
+      color: #5d6f86;
+      font-size: 14px;
+    }
+
+    .gallery-caption a {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .doc-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .doc-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #1d3d67;
+    }
+
+    .doc-card a {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .notes-block {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .notes-block h2 {
+      margin-top: 0;
+      color: #1d3d67;
+    }
+
+    .notes-block ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.8;
+      color: #425b78;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid,
+      .gallery-grid,
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="about-grid">
+    {content.ru.sections.map((section, index) => (
+      <div class="about-card">
+        <h2 id={`section-title-${index}`}>{section.title}</h2>
+        <p id={`section-text-${index}`}>{section.text}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="gallery-grid">
+    {gallery.map((item, index) => (
+      <div class="gallery-card">
+        <a href={item.src} target="_blank">
+          <img src={item.src} alt={`about-image-${index + 1}`} />
+        </a>
+        <div class="gallery-caption">
+          <a href={item.src} target="_blank" id={`gallery-title-${index}`}>
+            {content.ru.galleryTitles[index]}
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="docs-grid">
+    {docs.map((doc, index) => (
+      <div class="doc-card">
+        <h3 id={`doc-title-${index}`}>{content.ru.docsTitle}</h3>
+        <a href={doc.file} target="_blank" id={`doc-open-${index}`}>
+          {content.ru.docsOpen}
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <div class="notes-block">
+    <h2 id="notes-title">{content.ru.notesTitle}</h2>
+    <ul>
+      {content.ru.notes.map((note, index) => (
+        <li id={`note-${index}`}>{note}</li>
+      ))}
+    </ul>
+  </div>
+
+  <script define:vars={{ content }}>
+    function setAboutLang(lang) {
+      const t = content[lang];
+      if (!t) return;
+
+      t.sections.forEach((section, index) => {
+        const titleEl = document.getElementById(`section-title-${index}`);
+        const textEl = document.getElementById(`section-text-${index}`);
+        if (titleEl) titleEl.textContent = section.title;
+        if (textEl) textEl.textContent = section.text;
+      });
+
+      t.galleryTitles.forEach((title, index) => {
+        const el = document.getElementById(`gallery-title-${index}`);
+        if (el) el.textContent = title;
+      });
+
+      document.querySelectorAll("[id^='doc-title-']").forEach((el) => {
+        el.textContent = t.docsTitle;
+      });
+
+      document.querySelectorAll("[id^='doc-open-']").forEach((el) => {
+        el.textContent = t.docsOpen;
+      });
+
+      const notesTitle = document.getElementById("notes-title");
+      if (notesTitle) notesTitle.textContent = t.notesTitle;
+
+      t.notes.forEach((note, index) => {
+        const el = document.getElementById(`note-${index}`);
+        if (el) el.textContent = note;
+      });
+    }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setAboutLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setAboutLang(event.detail.lang);
+    });
+  </script>
+</SiteLayout>

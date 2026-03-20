@@ -1,0 +1,218 @@
+---
+import { ui } from "../data/i18n.js";
+
+const { pageTranslations } = Astro.props;
+---
+
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Biogeo</title>
+
+    <style>
+      :root {
+        --card: rgba(255, 255, 255, 0.96);
+        --text: #17365d;
+        --muted: #5d6f86;
+        --line: #d8dde5;
+        --blue: #174b87;
+        --shadow: 0 18px 45px rgba(31, 51, 81, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #edf1f5 0%, #e7edf3 100%);
+        color: var(--text);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1300px, calc(100% - 40px));
+        margin: 28px auto;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(210, 220, 230, 0.9);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      /* HEADER */
+
+      .header {
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--blue);
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        font-size: 15px;
+        color: #50627b;
+        font-weight: 600;
+      }
+
+      /* LANGUAGE */
+
+      .lang {
+        display: flex;
+        gap: 6px;
+      }
+
+      .lang button {
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccd6e2;
+        background: #eef2f6;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .lang button.active {
+        background: var(--blue);
+        color: white;
+      }
+
+      /* CONTENT */
+
+      .content {
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 32px 0 40px;
+      }
+
+      .back-link {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--blue);
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: clamp(34px, 4vw, 52px);
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle {
+        margin-top: 12px;
+        font-size: 17px;
+        color: var(--muted);
+        max-width: 800px;
+      }
+
+      @media (max-width: 900px) {
+        .header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 12px 0;
+        }
+
+        .nav {
+          gap: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="shell">
+      <header class="header">
+        <div class="header-inner">
+          <div class="brand">BIOGEO</div>
+
+          <nav class="nav">
+            <a href="/" id="nav-home">Главная</a>
+            <a href="/about" id="nav-about">Обо мне</a>
+            <a href="/biogeo" id="nav-biogeo">BIOGEO</a>
+            <a href="/sahel" id="nav-sahel">Сахель</a>
+            <a href="/humanitarian" id="nav-humanitarian">Гуманитарные миссии</a>
+          </nav>
+
+          <div class="lang">
+            <button onclick="setLang('ru')" data-lang="ru">RU</button>
+            <button onclick="setLang('en')" data-lang="en">EN</button>
+            <button onclick="setLang('fr')" data-lang="fr">FR</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <a href="/" id="back" class="back-link">← назад</a>
+
+        <h1 id="title">...</h1>
+        <p id="subtitle" class="subtitle">...</p>
+
+        <slot />
+      </main>
+    </div>
+
+    <script define:vars={{ ui, pageTranslations }}>
+      window.setLang = function (lang) {
+        const t = ui[lang];
+        const p = pageTranslations[lang];
+
+        if (!t || !p) return;
+
+        document.getElementById("nav-home").textContent = t.navHome;
+        document.getElementById("nav-about").textContent = t.navAbout;
+        document.getElementById("nav-biogeo").textContent = t.navBiogeo;
+        document.getElementById("nav-sahel").textContent = t.navSahel;
+        document.getElementById("nav-humanitarian").textContent = t.navHumanitarian;
+
+        document.getElementById("back").textContent = t.back;
+
+        document.getElementById("title").textContent = p.title;
+        document.getElementById("subtitle").textContent = p.subtitle;
+
+        document.querySelectorAll(".lang button").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.lang === lang);
+        });
+
+        localStorage.setItem("lang", lang);
+
+        // 🔥 ключевой момент
+        window.dispatchEvent(new CustomEvent("languageChanged", {
+          detail: { lang }
+        }));
+      };
+
+      const saved = localStorage.getItem("lang") || "ru";
+      window.setLang(saved);
+    </script>
+  </body>
+</html>

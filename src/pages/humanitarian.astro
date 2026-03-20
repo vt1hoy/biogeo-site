@@ -1,0 +1,328 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "Гуманитарные миссии",
+    subtitle: "Наблюдения за миссиями, организациями и ролями, в которые я хочу попасть."
+  },
+  en: {
+    title: "Humanitarian Missions",
+    subtitle: "Observations on missions, organizations and roles I want to enter."
+  },
+  fr: {
+    title: "Missions humanitaires",
+    subtitle: "Observations sur les missions, les organisations et les rôles que je vise."
+  }
+};
+
+const content = {
+  ru: {
+    introTitle: "Фокус",
+    introText:
+      "Здесь я собираю миссии, организации и позиции, которые мне интересны. Страница нужна как рабочий список наблюдений и ориентир для развития портфолио.",
+    missionTitle: "Миссии",
+    noteTitle: "Примечание",
+    noteText:
+      "Для каждой миссии можно хранить страну, контекст, задачи, визуалы и свои комментарии. Потом это можно использовать как ориентир для кейсов и откликов."
+  },
+  en: {
+    introTitle: "Focus",
+    introText:
+      "Here I collect missions, organizations and positions that interest me. This page works as a watchlist and a reference point for portfolio development.",
+    missionTitle: "Missions",
+    noteTitle: "Note",
+    noteText:
+      "For each mission you can store country, context, tasks, visuals and personal comments. Later this can guide cases and applications."
+  },
+  fr: {
+    introTitle: "Focus",
+    introText:
+      "Ici je rassemble les missions, les organisations et les postes qui m'intéressent. Cette page sert de watchlist et de repère pour développer le portfolio.",
+    missionTitle: "Missions",
+    noteTitle: "Note",
+    noteText:
+      "Pour chaque mission, tu peux conserver le pays, le contexte, les tâches, les visuels et tes commentaires. Ensuite cela peut guider les cas et les candidatures."
+  }
+};
+
+const missions = [
+  {
+    key: "mission-1",
+    ru: {
+      title: "REACH / IMPACT — Саhel watch",
+      place: "Нигер / Ниамей",
+      type: "GIS / гуманитарный анализ",
+      interest: "Интерес: вода, доступность, инфраструктура",
+      note: "Эта миссия интересна как вход в гуманитарный GIS через реальный региональный контекст."
+    },
+    en: {
+      title: "REACH / IMPACT — Sahel watch",
+      place: "Niger / Niamey",
+      type: "GIS / humanitarian analysis",
+      interest: "Interest: water, accessibility, infrastructure",
+      note: "This mission is interesting as an entry into humanitarian GIS through real regional context."
+    },
+    fr: {
+      title: "REACH / IMPACT — veille Sahel",
+      place: "Niger / Niamey",
+      type: "SIG / analyse humanitaire",
+      interest: "Intérêt : eau, accessibilité, infrastructures",
+      note: "Cette mission est intéressante comme porte d'entrée dans le SIG humanitaire via un contexte régional réel."
+    },
+    image1: "/assets/humanitarian/images/mission1a.png",
+    image2: "/assets/humanitarian/images/mission1b.png"
+  },
+  {
+    key: "mission-2",
+    ru: {
+      title: "ACTED — логистика и полевой GIS",
+      place: "Мали / Бамако",
+      type: "Полевые миссии / логистика / GIS",
+      interest: "Интерес: ресурсы, маршруты, доступность, supply",
+      note: "Здесь я бы смотрел на прикладное применение GIS в связке с полевой и логистической работой."
+    },
+    en: {
+      title: "ACTED — logistics and field GIS",
+      place: "Mali / Bamako",
+      type: "Field missions / logistics / GIS",
+      interest: "Interest: resources, routes, accessibility, supply",
+      note: "Here I would focus on applied GIS linked with field and logistics work."
+    },
+    fr: {
+      title: "ACTED — logistique et SIG terrain",
+      place: "Mali / Bamako",
+      type: "Missions terrain / logistique / SIG",
+      interest: "Intérêt : ressources, routes, accessibilité, supply",
+      note: "Ici je regarderais l'application du SIG en lien avec le terrain et la logistique."
+    },
+    image1: "/assets/humanitarian/images/mission2a.png",
+    image2: "/assets/humanitarian/images/mission2b.png"
+  }
+];
+---
+
+<SiteLayout pageTranslations={pageTranslations}>
+  <style>
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #1d3d67;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.75;
+      color: #425b78;
+    }
+
+    .missions-block {
+      margin-top: 24px;
+    }
+
+    .missions-title {
+      margin: 0 0 16px;
+      color: #1d3d67;
+      font-size: 28px;
+    }
+
+    .mission-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .mission-head {
+      margin-bottom: 14px;
+    }
+
+    .mission-head h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      color: #1d3d67;
+    }
+
+    .mission-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meta-pill {
+      background: #eef4fb;
+      color: #174b87;
+      border: 1px solid #d7e2ef;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .mission-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .mission-text-block {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .mission-text-block h4 {
+      margin: 0 0 10px;
+      color: #284a73;
+      font-size: 16px;
+    }
+
+    .mission-text-block p {
+      margin: 0;
+      color: #425b78;
+      line-height: 1.7;
+    }
+
+    .mission-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .mission-image-card {
+      background: white;
+      border: 1px solid #dde5ed;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .mission-image-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .mission-image-caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #5d6f86;
+    }
+
+    @media (max-width: 980px) {
+      .top-grid,
+      .mission-text,
+      .mission-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="top-grid">
+    <div class="card">
+      <h2 id="intro-title">{content.ru.introTitle}</h2>
+      <p id="intro-text">{content.ru.introText}</p>
+    </div>
+
+    <div class="card">
+      <h2 id="note-title">{content.ru.noteTitle}</h2>
+      <p id="note-text">{content.ru.noteText}</p>
+    </div>
+  </div>
+
+  <div class="missions-block">
+    <h2 class="missions-title" id="missions-title">{content.ru.missionTitle}</h2>
+
+    {missions.map((mission) => (
+      <div class="mission-card">
+        <div class="mission-head">
+          <h3 id={`${mission.key}-title`}>{mission.ru.title}</h3>
+        </div>
+
+        <div class="mission-meta">
+          <div class="meta-pill" id={`${mission.key}-place`}>{mission.ru.place}</div>
+          <div class="meta-pill" id={`${mission.key}-type`}>{mission.ru.type}</div>
+        </div>
+
+        <div class="mission-text">
+          <div class="mission-text-block">
+            <h4>Interest</h4>
+            <p id={`${mission.key}-interest`}>{mission.ru.interest}</p>
+          </div>
+
+          <div class="mission-text-block">
+            <h4>Note</h4>
+            <p id={`${mission.key}-note`}>{mission.ru.note}</p>
+          </div>
+        </div>
+
+        <div class="mission-gallery">
+          <div class="mission-image-card">
+            <a href={mission.image1} target="_blank">
+              <img src={mission.image1} alt={`${mission.key}-image-1`} />
+            </a>
+            <div class="mission-image-caption">Image 1</div>
+          </div>
+
+          <div class="mission-image-card">
+            <a href={mission.image2} target="_blank">
+              <img src={mission.image2} alt={`${mission.key}-image-2`} />
+            </a>
+            <div class="mission-image-caption">Image 2</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <script define:vars={{ content, missions }}>
+    function setHumanitarianLang(lang) {
+      const c = content[lang];
+      if (!c) return;
+
+      document.getElementById("intro-title").textContent = c.introTitle;
+      document.getElementById("intro-text").textContent = c.introText;
+      document.getElementById("missions-title").textContent = c.missionTitle;
+      document.getElementById("note-title").textContent = c.noteTitle;
+      document.getElementById("note-text").textContent = c.noteText;
+
+      missions.forEach((mission) => {
+        const t = mission[lang];
+        if (!t) return;
+
+        document.getElementById(`${mission.key}-title`).textContent = t.title;
+        document.getElementById(`${mission.key}-place`).textContent = t.place;
+        document.getElementById(`${mission.key}-type`).textContent = t.type;
+        document.getElementById(`${mission.key}-interest`).textContent = t.interest;
+        document.getElementById(`${mission.key}-note`).textContent = t.note;
+      });
+    }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setHumanitarianLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setHumanitarianLang(event.detail.lang);
+    });
+  </script>
+</SiteLayout>

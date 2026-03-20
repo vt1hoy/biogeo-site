@@ -1,0 +1,540 @@
+---
+import SiteLayout2 from "../layouts/SiteLayout2.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "Бамако — ресурсы",
+    subtitle:
+      "Здесь собираются карты, PDF, workflow и код по теме ресурсов, инфраструктуры, логистики и пространственного анализа."
+  },
+  en: {
+    title: "Bamako — resources",
+    subtitle:
+      "Maps, PDF, workflows and code for resources, infrastructure, logistics and spatial analysis."
+  },
+  fr: {
+    title: "Bamako — ressources",
+    subtitle:
+      "Cartes, PDF, workflows et code sur les ressources, les infrastructures, la logistique et l'analyse spatiale."
+  }
+};
+
+const images = [
+  {
+    src: "/assets/bamako/images/cellid.png"
+  },
+  {
+    src: "/assets/bamako/images/cellid2.png"
+  }
+];
+
+const pdfs = [
+  {
+    file: "/assets/bamako/pdf/t1.pdf"
+  },
+  {
+    file: "/assets/bamako/pdf/t2.pdf"
+  }
+];
+
+const translations = {
+  ru: {
+    maps: "Карты",
+    pdf: "PDF",
+    workflow: "QGIS workflow",
+    python: "Python / GeoPandas",
+    pdfOpen: "Открыть PDF",
+    fileOpen: "Открыть файл",
+    copy: "Копировать",
+    copied: "Скопировано",
+    imageTitles: ["NDVI Bamako", "Resource proximity"],
+    pdfTitles: ["Resource analysis", "Transport report"],
+    workflowItems: [
+      {
+        title: "Resource accessibility analysis",
+        steps: [
+          "Загрузка OSM данных",
+          "Фильтрация слоёв",
+          "Создание буферов",
+          "Расчёт расстояний",
+          "Экспорт карты"
+        ]
+      },
+      {
+        title: "Mining proximity workflow",
+        steps: [
+          "Импорт точек месторождений",
+          "Буфер 5–10 км",
+          "Пересечение с дорогами и поселениями",
+          "Оценка доступности",
+          "Экспорт результата"
+        ]
+      }
+    ],
+    codeTitle1: "Python — preprocessing",
+    codeTitle2: "Python — spatial join",
+    codeDesc1:
+      "Здесь может быть описание скрипта: что он делает, к какой карте относится и какой результат даёт.",
+    codeDesc2:
+      "Здесь может быть второй скрипт: альтернативный пайплайн, spatial join, буферы, экспорт или любой другой кусок анализа.",
+    codeLoadError: "Ошибка загрузки кода"
+  },
+
+  en: {
+    maps: "Maps",
+    pdf: "PDF",
+    workflow: "QGIS workflow",
+    python: "Python / GeoPandas",
+    pdfOpen: "Open PDF",
+    fileOpen: "Open file",
+    copy: "Copy",
+    copied: "Copied",
+    imageTitles: ["NDVI Bamako", "Resource proximity"],
+    pdfTitles: ["Resource analysis", "Transport report"],
+    workflowItems: [
+      {
+        title: "Resource accessibility analysis",
+        steps: [
+          "Load OSM data",
+          "Filter layers",
+          "Create buffers",
+          "Calculate distances",
+          "Export the map"
+        ]
+      },
+      {
+        title: "Mining proximity workflow",
+        steps: [
+          "Import mining points",
+          "Create 5–10 km buffer",
+          "Intersect with roads and settlements",
+          "Assess accessibility",
+          "Export results"
+        ]
+      }
+    ],
+    codeTitle1: "Python — preprocessing",
+    codeTitle2: "Python — spatial join",
+    codeDesc1:
+      "Here you can describe what the script does, which map it relates to and what result it produces.",
+    codeDesc2:
+      "Here you can keep a second script: alternative pipeline, spatial join, buffers, export or any other analysis segment.",
+    codeLoadError: "Code loading error"
+  },
+
+  fr: {
+    maps: "Cartes",
+    pdf: "PDF",
+    workflow: "Workflow QGIS",
+    python: "Python / GeoPandas",
+    pdfOpen: "Ouvrir le PDF",
+    fileOpen: "Ouvrir le fichier",
+    copy: "Copier",
+    copied: "Copié",
+    imageTitles: ["NDVI Bamako", "Proximité des ressources"],
+    pdfTitles: ["Analyse des ressources", "Rapport transport"],
+    workflowItems: [
+      {
+        title: "Analyse de l'accessibilité des ressources",
+        steps: [
+          "Chargement des données OSM",
+          "Filtrage des couches",
+          "Création des buffers",
+          "Calcul des distances",
+          "Export de la carte"
+        ]
+      },
+      {
+        title: "Workflow de proximité minière",
+        steps: [
+          "Import des points miniers",
+          "Buffer de 5–10 km",
+          "Intersection avec routes et localités",
+          "Évaluation de l'accessibilité",
+          "Export du résultat"
+        ]
+      }
+    ],
+    codeTitle1: "Python — prétraitement",
+    codeTitle2: "Python — jointure spatiale",
+    codeDesc1:
+      "Ici tu peux décrire ce que fait le script, à quelle carte il correspond et quel résultat il produit.",
+    codeDesc2:
+      "Ici tu peux garder un deuxième script : pipeline alternatif, jointure spatiale, buffers, export ou tout autre segment d'analyse.",
+    codeLoadError: "Erreur de chargement du code"
+  }
+};
+---
+
+<SiteLayout2 pageTranslations={pageTranslations}>
+  <style>
+    .block {
+      background: rgba(255, 255, 255, 0.96);
+      padding: 24px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      border: 1px solid #d9e1ea;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .block h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #1d3d67;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .image-card {
+      background: #fff;
+      border: 1px solid #dde5ed;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .image-caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #5d6f86;
+    }
+
+    .image-caption a {
+      color: #174b87;
+      font-weight: 600;
+    }
+
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .pdf-card {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .pdf-card h3 {
+      margin: 0 0 10px;
+      color: #284a73;
+      font-size: 18px;
+    }
+
+    .pdf-card a {
+      color: #174b87;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .workflow-item {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .workflow-item h3 {
+      margin: 0 0 10px;
+      color: #284a73;
+      font-size: 18px;
+    }
+
+    .workflow-item ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+      color: #425b78;
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .code-card {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .code-card h3 {
+      margin: 0 0 10px;
+      color: #284a73;
+    }
+
+    .code-description {
+      margin-bottom: 12px;
+      color: #5b6d85;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .code-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .code-top a {
+      color: #174b87;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .btn {
+      background: #174b87;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
+    }
+
+    .code-block {
+      background: #0f1722;
+      color: #d9e7ff;
+      padding: 16px;
+      border-radius: 12px;
+      font-family: Consolas, monospace;
+      white-space: pre;
+      overflow: auto;
+      line-height: 1.55;
+      max-height: 420px;
+      font-size: 13px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    @media (max-width: 900px) {
+      .image-grid,
+      .pdf-grid,
+      .workflow-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="block">
+    <h2 id="maps-heading">{translations.ru.maps}</h2>
+
+    <div class="image-grid">
+      {images.map((item, index) => (
+        <div class="image-card">
+          <a href={item.src} target="_blank">
+            <img src={item.src} alt={`bamako-image-${index + 1}`} />
+          </a>
+          <div class="image-caption">
+            <a href={item.src} target="_blank" id={`image-title-${index}`}>
+              {translations.ru.imageTitles[index]}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 id="pdf-heading">{translations.ru.pdf}</h2>
+
+    <div class="pdf-grid">
+      {pdfs.map((pdf, index) => (
+        <div class="pdf-card">
+          <h3 id={`pdf-title-${index}`}>{translations.ru.pdfTitles[index]}</h3>
+          <a href={pdf.file} target="_blank" class="pdf-open">
+            {translations.ru.pdfOpen}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 id="workflow-heading">{translations.ru.workflow}</h2>
+
+    <div class="workflow-grid">
+      {translations.ru.workflowItems.map((wf, wfIndex) => (
+        <div class="workflow-item">
+          <h3 id={`workflow-title-${wfIndex}`}>{wf.title}</h3>
+          <ul id={`workflow-steps-${wfIndex}`}>
+            {wf.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 id="python-heading">{translations.ru.python}</h2>
+
+    <div class="code-grid">
+      <div class="code-card">
+        <h3 id="code-title-1">{translations.ru.codeTitle1}</h3>
+
+        <div class="code-description" id="code-desc-1">
+          {translations.ru.codeDesc1}
+        </div>
+
+        <div class="code-top">
+          <a href="/assets/bamako/code/analysis.py" target="_blank" class="code-open">
+            {translations.ru.fileOpen}
+          </a>
+          <button class="btn copy-btn" onclick="copyCode('code1', this)">
+            {translations.ru.copy}
+          </button>
+        </div>
+
+        <pre class="code-block" id="code1">Загрузка...</pre>
+      </div>
+
+      <div class="code-card">
+        <h3 id="code-title-2">{translations.ru.codeTitle2}</h3>
+
+        <div class="code-description" id="code-desc-2">
+          {translations.ru.codeDesc2}
+        </div>
+
+        <div class="code-top">
+          <a href="/assets/bamako/code/analysis2.py" target="_blank" class="code-open">
+            {translations.ru.fileOpen}
+          </a>
+          <button class="btn copy-btn" onclick="copyCode('code2', this)">
+            {translations.ru.copy}
+          </button>
+        </div>
+
+        <pre class="code-block" id="code2">Загрузка...</pre>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ translations }}>
+    const i18n = translations;
+
+    function renderWorkflowItems(t) {
+      t.workflowItems.forEach((wf, wfIndex) => {
+        const titleEl = document.getElementById(`workflow-title-${wfIndex}`);
+        const stepsEl = document.getElementById(`workflow-steps-${wfIndex}`);
+
+        if (titleEl) titleEl.textContent = wf.title;
+
+        if (stepsEl) {
+          stepsEl.innerHTML = "";
+          wf.steps.forEach((step) => {
+            const li = document.createElement("li");
+            li.textContent = step;
+            stepsEl.appendChild(li);
+          });
+        }
+      });
+    }
+
+    function setBamakoLang(lang) {
+      const t = i18n[lang];
+      if (!t) return;
+
+      document.getElementById("maps-heading").textContent = t.maps;
+      document.getElementById("pdf-heading").textContent = t.pdf;
+      document.getElementById("workflow-heading").textContent = t.workflow;
+      document.getElementById("python-heading").textContent = t.python;
+
+      t.imageTitles.forEach((title, index) => {
+        const el = document.getElementById(`image-title-${index}`);
+        if (el) el.textContent = title;
+      });
+
+      t.pdfTitles.forEach((title, index) => {
+        const el = document.getElementById(`pdf-title-${index}`);
+        if (el) el.textContent = title;
+      });
+
+      renderWorkflowItems(t);
+
+      document.getElementById("code-title-1").textContent = t.codeTitle1;
+      document.getElementById("code-title-2").textContent = t.codeTitle2;
+      document.getElementById("code-desc-1").textContent = t.codeDesc1;
+      document.getElementById("code-desc-2").textContent = t.codeDesc2;
+
+      document.querySelectorAll(".pdf-open").forEach((el) => {
+        el.textContent = t.pdfOpen;
+      });
+
+      document.querySelectorAll(".code-open").forEach((el) => {
+        el.textContent = t.fileOpen;
+      });
+
+      document.querySelectorAll(".copy-btn").forEach((el) => {
+        el.textContent = t.copy;
+        el.dataset.copyLabel = t.copy;
+        el.dataset.copiedLabel = t.copied;
+      });
+    }
+
+    async function loadCode(id, path) {
+      const el = document.getElementById(id);
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error("fetch failed");
+        const text = await res.text();
+        el.textContent = text;
+      } catch {
+        const savedLang = localStorage.getItem("lang") || "ru";
+        el.textContent = i18n[savedLang].codeLoadError;
+      }
+    }
+
+    window.copyCode = function (id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text);
+
+      const copiedLabel = btn.dataset.copiedLabel || "Скопировано";
+      const copyLabel = btn.dataset.copyLabel || "Копировать";
+
+      btn.textContent = copiedLabel;
+      setTimeout(() => {
+        btn.textContent = copyLabel;
+      }, 1200);
+    };
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setBamakoLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setBamakoLang(event.detail.lang);
+    });
+
+    loadCode("code1", "/assets/bamako/code/analysis.py");
+    loadCode("code2", "/assets/bamako/code/analysis2.py");
+  </script>
+</SiteLayout2>

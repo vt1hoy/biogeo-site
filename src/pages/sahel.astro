@@ -1,0 +1,320 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "Планы на Сахель",
+    subtitle: "Фокус на регионе, странах, задачах и прикладных GIS-кейсах."
+  },
+  en: {
+    title: "Sahel Plan",
+    subtitle: "Focus on the region, countries, tasks and applied GIS cases."
+  },
+  fr: {
+    title: "Plan Sahel",
+    subtitle: "Focus sur la région, les pays, les tâches et les cas SIG appliqués."
+  }
+};
+
+const content = {
+  ru: {
+    sections: [
+      {
+        title: "Почему Сахель",
+        text: "Меня интересует Сахель как зона пересечения воды, ресурсов, урбанизации, нестабильности и гуманитарных задач."
+      },
+      {
+        title: "На чём фокус",
+        text: "Вода, урбанистика, сельское хозяйство, ресурсы, логистика, инфраструктура и GIS как инструмент практического анализа."
+      },
+      {
+        title: "Что хочу делать",
+        text: "Собирать кейсы, карты, workflow, PDF и код по странам и задачам, чтобы выйти на прикладной уровень работы."
+      }
+    ],
+    galleryTitles: ["Регион / карта 1", "Регион / карта 2"],
+    docsTitle: "Sahel brief",
+    docsOpen: "Открыть PDF",
+    notesTitle: "Notes",
+    notes: [
+      "Фокус на прикладном GIS",
+      "Интерес к воде, ресурсам и урбанистике",
+      "Портфолио должно быть связано с реальными задачами региона"
+    ]
+  },
+
+  en: {
+    sections: [
+      {
+        title: "Why the Sahel",
+        text: "I am interested in the Sahel as a zone where water, resources, urbanization, instability and humanitarian issues intersect."
+      },
+      {
+        title: "Main focus",
+        text: "Water, urbanism, agriculture, resources, logistics, infrastructure and GIS as a tool for practical analysis."
+      },
+      {
+        title: "What I want to do",
+        text: "Build cases, maps, workflows, PDFs and code by country and by problem to reach an applied working level."
+      }
+    ],
+    galleryTitles: ["Region / map 1", "Region / map 2"],
+    docsTitle: "Sahel brief",
+    docsOpen: "Open PDF",
+    notesTitle: "Notes",
+    notes: [
+      "Focus on applied GIS",
+      "Interest in water, resources and urbanism",
+      "The portfolio should be tied to real regional problems"
+    ]
+  },
+
+  fr: {
+    sections: [
+      {
+        title: "Pourquoi le Sahel",
+        text: "Le Sahel m'intéresse comme zone d'intersection entre l'eau, les ressources, l'urbanisation, l'instabilité et les enjeux humanitaires."
+      },
+      {
+        title: "Axes principaux",
+        text: "Eau, urbanisme, agriculture, ressources, logistique, infrastructures et SIG comme outil d'analyse appliquée."
+      },
+      {
+        title: "Ce que je veux faire",
+        text: "Construire des cas, des cartes, des workflows, des PDF et du code par pays et par problème pour atteindre un niveau de travail appliqué."
+      }
+    ],
+    galleryTitles: ["Région / carte 1", "Région / carte 2"],
+    docsTitle: "Brief Sahel",
+    docsOpen: "Ouvrir le PDF",
+    notesTitle: "Notes",
+    notes: [
+      "Focus sur le SIG appliqué",
+      "Intérêt pour l'eau, les ressources et l'urbanisme",
+      "Le portfolio doit être lié à des problèmes réels de la région"
+    ]
+  }
+};
+
+const gallery = [
+  {
+    src: "/assets/sahel/images/img1.png"
+  },
+  {
+    src: "/assets/sahel/images/img2.png"
+  }
+];
+
+const docs = [
+  {
+    file: "/assets/sahel/docs/sahel-brief.pdf"
+  }
+];
+---
+
+<SiteLayout pageTranslations={pageTranslations}>
+  <style>
+    .sahel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .sahel-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .sahel-card h2,
+    .sahel-card h3 {
+      margin-top: 0;
+      color: #1d3d67;
+    }
+
+    .sahel-card p {
+      margin-bottom: 0;
+      line-height: 1.75;
+      color: #425b78;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .gallery-card {
+      background: white;
+      border: 1px solid #dde5ed;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 12px 14px;
+      color: #5d6f86;
+      font-size: 14px;
+    }
+
+    .gallery-caption a {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .doc-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .doc-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #1d3d67;
+    }
+
+    .doc-card a {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .notes-block {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .notes-block h2 {
+      margin-top: 0;
+      color: #1d3d67;
+    }
+
+    .notes-block ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.8;
+      color: #425b78;
+    }
+
+    @media (max-width: 900px) {
+      .sahel-grid,
+      .gallery-grid,
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="sahel-grid">
+    {content.ru.sections.map((section, index) => (
+      <div class="sahel-card">
+        <h2 id={`section-title-${index}`}>{section.title}</h2>
+        <p id={`section-text-${index}`}>{section.text}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="gallery-grid">
+    {gallery.map((item, index) => (
+      <div class="gallery-card">
+        <a href={item.src} target="_blank">
+          <img src={item.src} alt={`sahel-image-${index + 1}`} />
+        </a>
+        <div class="gallery-caption">
+          <a href={item.src} target="_blank" id={`gallery-title-${index}`}>
+            {content.ru.galleryTitles[index]}
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="docs-grid">
+    {docs.map((doc, index) => (
+      <div class="doc-card">
+        <h3 id={`doc-title-${index}`}>{content.ru.docsTitle}</h3>
+        <a href={doc.file} target="_blank" id={`doc-open-${index}`}>
+          {content.ru.docsOpen}
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <div class="notes-block">
+    <h2 id="notes-title">{content.ru.notesTitle}</h2>
+    <ul>
+      {content.ru.notes.map((note, index) => (
+        <li id={`note-${index}`}>{note}</li>
+      ))}
+    </ul>
+  </div>
+
+  <script define:vars={{ content }}>
+    function setSahelLang(lang) {
+      const t = content[lang];
+      if (!t) return;
+
+      t.sections.forEach((section, index) => {
+        const titleEl = document.getElementById(`section-title-${index}`);
+        const textEl = document.getElementById(`section-text-${index}`);
+        if (titleEl) titleEl.textContent = section.title;
+        if (textEl) textEl.textContent = section.text;
+      });
+
+      t.galleryTitles.forEach((title, index) => {
+        const el = document.getElementById(`gallery-title-${index}`);
+        if (el) el.textContent = title;
+      });
+
+      document.querySelectorAll("[id^='doc-title-']").forEach((el) => {
+        el.textContent = t.docsTitle;
+      });
+
+      document.querySelectorAll("[id^='doc-open-']").forEach((el) => {
+        el.textContent = t.docsOpen;
+      });
+
+      const notesTitle = document.getElementById("notes-title");
+      if (notesTitle) notesTitle.textContent = t.notesTitle;
+
+      t.notes.forEach((note, index) => {
+        const el = document.getElementById(`note-${index}`);
+        if (el) el.textContent = note;
+      });
+    }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setSahelLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setSahelLang(event.detail.lang);
+    });
+  </script>
+</SiteLayout>

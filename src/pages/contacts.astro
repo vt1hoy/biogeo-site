@@ -1,0 +1,269 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "Контакты",
+    subtitle: "Каналы связи, социальные сети и рабочие контакты."
+  },
+  en: {
+    title: "Contacts",
+    subtitle: "Communication channels, social media and work contacts."
+  },
+  fr: {
+    title: "Contacts",
+    subtitle: "Canaux de communication, réseaux sociaux et contacts professionnels."
+  }
+};
+
+const content = {
+  ru: {
+    introTitle: "Связь",
+    introText:
+      "Здесь можно собрать все каналы связи: рабочие, публичные и личные. Можно использовать страницу как контактный хаб для резюме, портфолио и откликов.",
+    contactTitle: "Основные контакты",
+    noteTitle: "Примечание",
+    noteText:
+      "Здесь можно дописать условия связи: например, по рабочим вопросам писать в Telegram или на email."
+  },
+  en: {
+    introTitle: "Contact",
+    introText:
+      "This page can contain all communication channels: work, public and personal. It can be used as a contact hub for resume, portfolio and outreach.",
+    contactTitle: "Main contacts",
+    noteTitle: "Note",
+    noteText:
+      "You can add contact preferences here, for example: for work inquiries use Telegram or email."
+  },
+  fr: {
+    introTitle: "Contact",
+    introText:
+      "Cette page peut contenir tous les canaux de communication : professionnels, publics et personnels. Elle peut servir de hub de contact pour le CV, le portfolio et les candidatures.",
+    contactTitle: "Contacts principaux",
+    noteTitle: "Note",
+    noteText:
+      "Tu peux ajouter ici tes préférences de contact, par exemple : pour les questions professionnelles, écrire sur Telegram ou par email."
+  }
+};
+
+const contacts = [
+  {
+    key: "telegram",
+    icon: "TG",
+    ruLabel: "Telegram",
+    enLabel: "Telegram",
+    frLabel: "Telegram",
+    value: "@yourname",
+    href: "https://t.me/yourname"
+  },
+  {
+    key: "mail",
+    icon: "ML",
+    ruLabel: "Email",
+    enLabel: "Email",
+    frLabel: "Email",
+    value: "yourmail@example.com",
+    href: "mailto:yourmail@example.com"
+  },
+  {
+    key: "x",
+    icon: "X",
+    ruLabel: "X / Twitter",
+    enLabel: "X / Twitter",
+    frLabel: "X / Twitter",
+    value: "@yourxaccount",
+    href: "https://x.com/yourxaccount"
+  },
+  {
+    key: "instagram",
+    icon: "IG",
+    ruLabel: "Instagram",
+    enLabel: "Instagram",
+    frLabel: "Instagram",
+    value: "@yourinst",
+    href: "https://instagram.com/yourinst"
+  },
+  {
+    key: "phone",
+    icon: "PH",
+    ruLabel: "Телефон",
+    enLabel: "Phone",
+    frLabel: "Téléphone",
+    value: "+7 900 000-00-00",
+    href: "tel:+79000000000"
+  },
+  {
+    key: "linkedin",
+    icon: "IN",
+    ruLabel: "LinkedIn",
+    enLabel: "LinkedIn",
+    frLabel: "LinkedIn",
+    value: "linkedin.com/in/yourprofile",
+    href: "https://linkedin.com/in/yourprofile"
+  }
+];
+---
+
+<SiteLayout pageTranslations={pageTranslations}>
+  <style>
+    .contacts-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #1d3d67;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.75;
+      color: #425b78;
+    }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .contact-card {
+      background: white;
+      border: 1px solid #dde5ed;
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(40, 60, 90, 0.08);
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #174b87;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .contact-body {
+      min-width: 0;
+    }
+
+    .contact-label {
+      margin: 0 0 6px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1d3d67;
+    }
+
+    .contact-link {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .note-block {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .contacts-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="contacts-layout">
+    <div class="card">
+      <h2 id="intro-title">{content.ru.introTitle}</h2>
+      <p id="intro-text">{content.ru.introText}</p>
+
+      <div class="note-block">
+        <h2 id="note-title">{content.ru.noteTitle}</h2>
+        <p id="note-text">{content.ru.noteText}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="contacts-title">{content.ru.contactTitle}</h2>
+
+      <div class="contacts-grid">
+        {contacts.map((item) => (
+          <a class="contact-card" href={item.href} target="_blank" rel="noopener noreferrer">
+            <div class="contact-icon">{item.icon}</div>
+
+            <div class="contact-body">
+              <p
+                class="contact-label"
+                id={`contact-label-${item.key}`}
+                data-ru={item.ruLabel}
+                data-en={item.enLabel}
+                data-fr={item.frLabel}
+              >
+                {item.ruLabel}
+              </p>
+
+              <span class="contact-link">{item.value}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ content }}>
+    function setContactsLang(lang) {
+      const t = content[lang];
+      if (!t) return;
+
+      document.getElementById("intro-title").textContent = t.introTitle;
+      document.getElementById("intro-text").textContent = t.introText;
+      document.getElementById("contacts-title").textContent = t.contactTitle;
+      document.getElementById("note-title").textContent = t.noteTitle;
+      document.getElementById("note-text").textContent = t.noteText;
+
+      document.querySelectorAll("[id^='contact-label-']").forEach((el) => {
+        const value = el.dataset[lang];
+        if (value) el.textContent = value;
+      });
+    }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setContactsLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setContactsLang(event.detail.lang);
+    });
+  </script>
+</SiteLayout>

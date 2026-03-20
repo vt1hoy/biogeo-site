@@ -1,0 +1,415 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const pageTranslations = {
+  ru: {
+    title: "BIOGEO",
+    subtitle: "Jetton на TON, связанный с ростом проекта, полевым вектором и дистрибуцией в Африке."
+  },
+  en: {
+    title: "BIOGEO",
+    subtitle: "A TON jetton tied to project growth, field direction and distribution in Africa."
+  },
+  fr: {
+    title: "BIOGEO",
+    subtitle: "Un jetton TON lié à la croissance du projet, à la direction terrain et à la distribution en Afrique."
+  }
+};
+
+const content = {
+  ru: {
+    metricsTitle: "Live metrics",
+    ideaTitle: "Идея",
+    tokenomicsTitle: "Tokenomics",
+    linksTitle: "On-chain / links",
+    roadmapTitle: "Roadmap",
+    notesTitle: "Notes",
+    openLink: "Открыть",
+
+    metrics: [
+      { label: "Цена", value: "$0.0000" },
+      { label: "Market cap", value: "—" },
+      { label: "Liquidity", value: "—" },
+      { label: "24h volume", value: "—" },
+      { label: "Total supply", value: "—" },
+      { label: "Last update", value: "manual" }
+    ],
+
+    idea: [
+      "BIOGEO — это токен, привязанный к моему долгому проекту роста, полевому вектору и дистрибуции в Африке.",
+      "Идея в том, что развитие сообщества, личный рост, полевая работа и узнаваемость проекта усиливают сам токен как культурный и сетевой объект.",
+      "Токен задуман не как абстрактный мем, а как цифровая часть более широкого biogeo / Africa / GIS / community narrative."
+    ],
+
+    tokenomics: [
+      "Общий supply: вписать вручную",
+      "Ликвидность: вписать вручную",
+      "Резерв / treasury: вписать вручную",
+      "Community allocation: вписать вручную",
+      "Founder allocation: вписать вручную",
+      "Логика distribution: раздача и циркуляция в течение 5 лет"
+    ],
+
+    roadmap: [
+      "Фаза 1 — запуск jetton, ликвидность, базовая инфраструктура",
+      "Фаза 2 — оформление narrative и сайта проекта",
+      "Фаза 3 — дистрибуция токена в Африке и сбор локального комьюнити",
+      "Фаза 4 — привязка токена к полевым, медийным и community-активностям",
+      "Фаза 5 — долгосрочное укрепление ценности через проект, сеть и полезность"
+    ],
+
+    notes: [
+      "Это экспериментальный и долгосрочный токен.",
+      "Страница может содержать on-chain метрики и explorer links.",
+      "Позже сюда можно подключить автообновление цены, holders, liquidity и volume."
+    ]
+  },
+
+  en: {
+    metricsTitle: "Live metrics",
+    ideaTitle: "Idea",
+    tokenomicsTitle: "Tokenomics",
+    linksTitle: "On-chain / links",
+    roadmapTitle: "Roadmap",
+    notesTitle: "Notes",
+    openLink: "Open",
+
+    metrics: [
+      { label: "Price", value: "$0.0000" },
+      { label: "Market cap", value: "—" },
+      { label: "Liquidity", value: "—" },
+      { label: "24h volume", value: "—" },
+      { label: "Total supply", value: "—" },
+      { label: "Last update", value: "manual" }
+    ],
+
+    idea: [
+      "BIOGEO is a token tied to my long-term growth project, field direction and distribution in Africa.",
+      "The idea is that community development, personal growth, field work and project visibility strengthen the token as a cultural and network object.",
+      "The token is not meant to be just an abstract meme, but a digital part of a broader biogeo / Africa / GIS / community narrative."
+    ],
+
+    tokenomics: [
+      "Total supply: fill manually",
+      "Liquidity: fill manually",
+      "Reserve / treasury: fill manually",
+      "Community allocation: fill manually",
+      "Founder allocation: fill manually",
+      "Distribution logic: circulation and distribution over 5 years"
+    ],
+
+    roadmap: [
+      "Phase 1 — jetton launch, liquidity, basic infrastructure",
+      "Phase 2 — narrative and project website setup",
+      "Phase 3 — token distribution in Africa and local community formation",
+      "Phase 4 — linking the token to field, media and community activities",
+      "Phase 5 — long-term value building through project, network and utility"
+    ],
+
+    notes: [
+      "This is an experimental and long-horizon token.",
+      "This page can contain on-chain metrics and explorer links.",
+      "Later, price, holders, liquidity and volume can be updated automatically."
+    ]
+  },
+
+  fr: {
+    metricsTitle: "Live metrics",
+    ideaTitle: "Idée",
+    tokenomicsTitle: "Tokenomics",
+    linksTitle: "On-chain / liens",
+    roadmapTitle: "Roadmap",
+    notesTitle: "Notes",
+    openLink: "Ouvrir",
+
+    metrics: [
+      { label: "Prix", value: "$0.0000" },
+      { label: "Market cap", value: "—" },
+      { label: "Liquidity", value: "—" },
+      { label: "24h volume", value: "—" },
+      { label: "Total supply", value: "—" },
+      { label: "Last update", value: "manuel" }
+    ],
+
+    idea: [
+      "BIOGEO est un token lié à mon projet de croissance à long terme, à la direction terrain et à la distribution en Afrique.",
+      "L’idée est que le développement de la communauté, la croissance personnelle, le travail de terrain et la visibilité du projet renforcent le token comme objet culturel et réseau.",
+      "Le token n’est pas conçu comme un simple meme abstrait, mais comme une partie numérique d’un récit plus large biogeo / Afrique / GIS / communauté."
+    ],
+
+    tokenomics: [
+      "Supply total : à remplir manuellement",
+      "Liquidité : à remplir manuellement",
+      "Réserve / treasury : à remplir manuellement",
+      "Allocation communauté : à remplir manuellement",
+      "Allocation fondateur : à remplir manuellement",
+      "Logique de distribution : circulation et distribution sur 5 ans"
+    ],
+
+    roadmap: [
+      "Phase 1 — lancement du jetton, liquidité, infrastructure de base",
+      "Phase 2 — mise en place du récit et du site du projet",
+      "Phase 3 — distribution du token en Afrique et formation d’une communauté locale",
+      "Phase 4 — lien du token avec les activités terrain, média et communauté",
+      "Phase 5 — construction de valeur à long terme via le projet, le réseau et l’utilité"
+    ],
+
+    notes: [
+      "C’est un token expérimental et de long terme.",
+      "Cette page peut contenir des métriques on-chain et des liens d’explorer.",
+      "Plus tard, le prix, les holders, la liquidité et le volume pourront être mis à jour automatiquement."
+    ]
+  }
+};
+
+const links = [
+  {
+    key: "tonviewer",
+    label: "Tonviewer",
+    href: "https://tonviewer.com/"
+  },
+  {
+    key: "stonfi",
+    label: "STON.fi",
+    href: "https://app.ston.fi/"
+  },
+  {
+    key: "contract",
+    label: "Contract",
+    href: "https://tonviewer.com/"
+  },
+  {
+    key: "wallet",
+    label: "Treasury wallet",
+    href: "https://tonviewer.com/"
+  }
+];
+---
+
+<SiteLayout pageTranslations={pageTranslations}>
+  <style>
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #d9e1ea;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: #1d3d67;
+      font-size: 26px;
+    }
+
+    .card p,
+    .card li {
+      color: #425b78;
+      line-height: 1.75;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .metric-box {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .metric-label {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: #5d6f86;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-value {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: #1d3d67;
+    }
+
+    .section-block {
+      margin-top: 24px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .list-block {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .link-card {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .link-card h3 {
+      margin: 0 0 10px;
+      color: #284a73;
+      font-size: 18px;
+    }
+
+    .link-card a {
+      color: #174b87;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .top-grid,
+      .two-col,
+      .links-grid,
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="top-grid">
+    <div class="card">
+      <h2 id="idea-title">{content.ru.ideaTitle}</h2>
+      <ul class="list-block" id="idea-list">
+        {content.ru.idea.map((item, index) => (
+          <li id={`idea-${index}`}>{item}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 id="metrics-title">{content.ru.metricsTitle}</h2>
+      <div class="metrics-grid">
+        {content.ru.metrics.map((item, index) => (
+          <div class="metric-box">
+            <p class="metric-label" id={`metric-label-${index}`}>{item.label}</p>
+            <p class="metric-value" id={`metric-value-${index}`}>{item.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block two-col">
+    <div class="card">
+      <h2 id="tokenomics-title">{content.ru.tokenomicsTitle}</h2>
+      <ul class="list-block" id="tokenomics-list">
+        {content.ru.tokenomics.map((item, index) => (
+          <li id={`tokenomics-${index}`}>{item}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 id="roadmap-title">{content.ru.roadmapTitle}</h2>
+      <ul class="list-block" id="roadmap-list">
+        {content.ru.roadmap.map((item, index) => (
+          <li id={`roadmap-${index}`}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-block card">
+    <h2 id="links-title">{content.ru.linksTitle}</h2>
+
+    <div class="links-grid">
+      {links.map((item, index) => (
+        <div class="link-card">
+          <h3>{item.label}</h3>
+          <a href={item.href} target="_blank" id={`open-link-${index}`}>
+            {content.ru.openLink}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="section-block card">
+    <h2 id="notes-title">{content.ru.notesTitle}</h2>
+    <ul class="list-block">
+      {content.ru.notes.map((item, index) => (
+        <li id={`note-${index}`}>{item}</li>
+      ))}
+    </ul>
+  </div>
+
+  <script define:vars={{ content }}>
+    function setBiogeoLang(lang) {
+      const t = content[lang];
+      if (!t) return;
+
+      document.getElementById("idea-title").textContent = t.ideaTitle;
+      document.getElementById("metrics-title").textContent = t.metricsTitle;
+      document.getElementById("tokenomics-title").textContent = t.tokenomicsTitle;
+      document.getElementById("links-title").textContent = t.linksTitle;
+      document.getElementById("roadmap-title").textContent = t.roadmapTitle;
+      document.getElementById("notes-title").textContent = t.notesTitle;
+
+      t.idea.forEach((item, index) => {
+        const el = document.getElementById(`idea-${index}`);
+        if (el) el.textContent = item;
+      });
+
+      t.metrics.forEach((item, index) => {
+        const labelEl = document.getElementById(`metric-label-${index}`);
+        const valueEl = document.getElementById(`metric-value-${index}`);
+        if (labelEl) labelEl.textContent = item.label;
+        if (valueEl) valueEl.textContent = item.value;
+      });
+
+      t.tokenomics.forEach((item, index) => {
+        const el = document.getElementById(`tokenomics-${index}`);
+        if (el) el.textContent = item;
+      });
+
+      t.roadmap.forEach((item, index) => {
+        const el = document.getElementById(`roadmap-${index}`);
+        if (el) el.textContent = item;
+      });
+
+      t.notes.forEach((item, index) => {
+        const el = document.getElementById(`note-${index}`);
+        if (el) el.textContent = item;
+      });
+
+      document.querySelectorAll("[id^='open-link-']").forEach((el) => {
+        el.textContent = t.openLink;
+      });
+    }
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    setBiogeoLang(savedLang);
+
+    window.addEventListener("languageChanged", (event) => {
+      setBiogeoLang(event.detail.lang);
+    });
+  </script>
+</SiteLayout>

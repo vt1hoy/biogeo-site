@@ -1,0 +1,265 @@
+---
+const { pageTranslations } = Astro.props;
+---
+
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTranslations.ru.title}</title>
+
+    <style>
+      :root {
+        --card: rgba(255, 255, 255, 0.96);
+        --text: #17365d;
+        --muted: #5d6f86;
+        --line: #d8dde5;
+        --blue: #174b87;
+        --shadow: 0 18px 45px rgba(31, 51, 81, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #edf1f5 0%, #e7edf3 100%);
+        color: var(--text);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1300px, calc(100% - 40px));
+        margin: 28px auto;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(210, 220, 230, 0.9);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--blue);
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+      }
+
+      .nav-wrap {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .nav {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        font-size: 15px;
+        color: #50627b;
+        font-weight: 600;
+      }
+
+      .lang {
+        display: flex;
+        gap: 6px;
+      }
+
+      .lang button {
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccd6e2;
+        background: #eef2f6;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--blue);
+      }
+
+      .lang button.active {
+        background: var(--blue);
+        color: white;
+      }
+
+      .content {
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 32px 12px 40px;
+      }
+
+      .hero-text {
+        padding-left: 24px;
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--blue);
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: clamp(34px, 4vw, 52px);
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle {
+        margin-top: 12px;
+        font-size: 17px;
+        color: var(--muted);
+        max-width: 840px;
+        line-height: 1.65;
+      }
+
+      @media (max-width: 980px) {
+        .header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 12px 0;
+        }
+
+        .nav {
+          gap: 14px;
+        }
+
+        .hero-text {
+          padding-left: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="shell">
+      <header class="header">
+        <div class="header-inner">
+          <div class="brand">BIOGEO</div>
+
+          <div class="nav-wrap">
+            <nav class="nav">
+              <a href="/" id="nav-home">Главная</a>
+              <a href="/dakar" id="nav-dakar">Дакар</a>
+              <a href="/bamako" id="nav-bamako">Бамако</a>
+              <a href="/ouagadougou" id="nav-ouaga">Уагадугу</a>
+              <a href="/niamey" id="nav-niamey">Ниамей</a>
+              <a href="/uav" id="nav-uav">БПЛА</a>
+            </nav>
+
+            <div class="lang">
+              <button onclick="setLang('ru')" data-lang="ru">RU</button>
+              <button onclick="setLang('en')" data-lang="en">EN</button>
+              <button onclick="setLang('fr')" data-lang="fr">FR</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="hero-text">
+          <a href="/" id="back" class="back-link">← назад</a>
+          <h1 id="title">{pageTranslations.ru.title}</h1>
+          <p id="subtitle" class="subtitle">{pageTranslations.ru.subtitle}</p>
+        </div>
+
+        <slot />
+      </main>
+    </div>
+
+    <script define:vars={{ pageTranslations }}>
+      const navTranslations = {
+        ru: {
+          home: "Главная",
+          dakar: "Дакар",
+          bamako: "Бамако",
+          ouaga: "Уагадугу",
+          niamey: "Ниамей",
+          uav: "БПЛА",
+          back: "← назад"
+        },
+        en: {
+          home: "Home",
+          dakar: "Dakar",
+          bamako: "Bamako",
+          ouaga: "Ouagadougou",
+          niamey: "Niamey",
+          uav: "UAV",
+          back: "← back"
+        },
+        fr: {
+          home: "Accueil",
+          dakar: "Dakar",
+          bamako: "Bamako",
+          ouaga: "Ouagadougou",
+          niamey: "Niamey",
+          uav: "UAV",
+          back: "← retour"
+        }
+      };
+
+      window.setLang = function (lang) {
+        const nav = navTranslations[lang];
+        const page = pageTranslations[lang];
+        if (!nav || !page) return;
+
+        document.documentElement.lang = lang;
+        document.title = page.title;
+
+        document.getElementById("nav-home").textContent = nav.home;
+        document.getElementById("nav-dakar").textContent = nav.dakar;
+        document.getElementById("nav-bamako").textContent = nav.bamako;
+        document.getElementById("nav-ouaga").textContent = nav.ouaga;
+        document.getElementById("nav-niamey").textContent = nav.niamey;
+        document.getElementById("nav-uav").textContent = nav.uav;
+        document.getElementById("back").textContent = nav.back;
+
+        document.getElementById("title").textContent = page.title;
+        document.getElementById("subtitle").textContent = page.subtitle;
+
+        document.querySelectorAll(".lang button").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.lang === lang);
+        });
+
+        localStorage.setItem("lang", lang);
+
+        window.dispatchEvent(
+          new CustomEvent("languageChanged", {
+            detail: { lang }
+          })
+        );
+      };
+
+      const saved = localStorage.getItem("lang") || "ru";
+      window.setLang(saved);
+    </script>
+  </body>
+</html>
