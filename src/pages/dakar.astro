@@ -5,162 +5,246 @@ const pageTranslations = {
   ru: {
     title: "Дакар — урбанизм",
     subtitle:
-      "Здесь собираются карты, PDF, workflow и код по теме ресурсов, инфраструктуры, логистики и пространственного анализа."
+      "Пилотный кейс по пешей доступности медицинской инфраструктуры в городской зоне Дакара на основе OSM, WorldPop и Python GIS workflow."
   },
   en: {
     title: "Dakar — urbanism",
     subtitle:
-      "Maps, PDF, workflows and code for resources, infrastructure, logistics and spatial analysis."
+      "A pilot case on pedestrian access to healthcare infrastructure in urban Dakar based on OSM, WorldPop, and a Python GIS workflow."
   },
   fr: {
     title: "Dakar — urbanisme",
     subtitle:
-      "Cartes, PDF, workflows et code sur les ressources, les infrastructures, la logistique et l'analyse spatiale."
+      "Un cas pilote sur l'accessibilité piétonne à l'infrastructure de santé dans l'espace urbain de Dakar à partir d'OSM, WorldPop et d'un workflow SIG en Python."
   }
 };
 
 const images = [
-  {
-    src: "/assets/bamako/images/cellid.png"
-  },
-  {
-    src: "/assets/bamako/images/cellid2.png"
-  }
+  { src: "/assets/dakar/images/health_distance.png" },
+  { src: "/assets/dakar/images/health_score.png" }
 ];
 
 const pdfs = [
-  {
-    file: "/assets/bamako/pdf/t1.pdf"
-  },
-  {
-    file: "/assets/bamako/pdf/t2.pdf"
-  }
+  { file: "/assets/dakar/pdf/dakar_health_access_brief.pdf" }
+];
+
+const pipelineFiles = [
+  "/assets/dakar/code/dakar_walk_network.py",
+  "/assets/dakar/code/dakar_health_osm.py",
+  "/assets/dakar/code/clip_population.py",
+  "/assets/dakar/code/population_grid.py",
+  "/assets/dakar/code/population_grid_300m.py",
+  "/assets/dakar/code/prepare_health_32628.py",
+  "/assets/dakar/code/build_urban_mask.py",
+  "/assets/dakar/code/clip_population_grid_to_mask.py",
+  "/assets/dakar/code/accessibility_nearest.py"
 ];
 
 const translations = {
   ru: {
+    introTitle: "Кейс",
+    introText:
+      "Этот кейс разбирает пешую доступность медицинской инфраструктуры в городской зоне Дакара. Я собрал рабочий GIS pipeline на основе OpenStreetMap, WorldPop и Python, чтобы посмотреть, насколько неравномерно по городу распределён доступ к ближайшему медицинскому объекту.",
+    keyFindingsTitle: "Что получилось",
+    keyFindings: [
+      "Медианная дистанция до ближайшего медобъекта: ~1.05 км",
+      "25% populated cells находятся в пределах 457 м от ближайшего объекта",
+      "25% populated cells расположены дальше 4.12 км",
+      "Центральная часть городской ткани обеспечена лучше, чем периферийные зоны"
+    ],
     maps: "Карты",
     pdf: "PDF",
-    workflow: "QGIS workflow",
+    workflow: "Workflow",
     python: "Python / GeoPandas",
+    pipelineTitle: "Full pipeline",
+    pipelineIntro: "Полная последовательность скриптов по кейсу.",
     pdfOpen: "Открыть PDF",
     fileOpen: "Открыть файл",
     copy: "Копировать",
     copied: "Скопировано",
-    imageTitles: ["NDVI Bamako", "Resource proximity"],
-    pdfTitles: ["Resource analysis", "Transport report"],
+    imageTitles: [
+      "Distance to nearest healthcare facility",
+      "Simple healthcare access score"
+    ],
+    pdfTitles: ["Dakar Healthcare Access Proxy — Field Brief"],
     workflowItems: [
       {
-        title: "Resource accessibility analysis",
+        title: "Workflow 1 — nearest facility accessibility model",
         steps: [
-          "Загрузка OSM данных",
-          "Фильтрация слоёв",
-          "Создание буферов",
-          "Расчёт расстояний",
-          "Экспорт карты"
+          "Загрузка пешеходной уличной сети Дакара из OSM",
+          "Извлечение медицинских объектов из OSM",
+          "Обрезка WorldPop raster по зоне исследования",
+          "Перевод population raster в сетку и агрегация до 300 м",
+          "Расчёт расстояния от populated cells до ближайшего медобъекта",
+          "Расчёт простого access score",
+          "Экспорт итогового GIS-ready слоя"
         ]
       },
       {
-        title: "Mining proximity workflow",
+        title: "Workflow 2 — urban mask and study area refinement",
         steps: [
-          "Импорт точек месторождений",
-          "Буфер 5–10 км",
-          "Пересечение с дорогами и поселениями",
-          "Оценка доступности",
-          "Экспорт результата"
+          "Репроекция street network в метрическую CRS",
+          "Построение буфера вокруг уличной сети",
+          "Сборка единой urban mask",
+          "Обрезка population grid по реальной городской зоне",
+          "Повторный расчёт distance-based accessibility",
+          "Сравнение результата до и после уточнения study area"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
-    codeDesc1:
-      "Здесь может быть описание скрипта: что он делает, к какой карте относится и какой результат даёт.",
-    codeDesc2:
-      "Здесь может быть второй скрипт: альтернативный пайплайн, spatial join, буферы, экспорт или любой другой кусок анализа.",
+    pipelineLabels: [
+      "1. Walk network",
+      "2. Health facilities",
+      "3. Clip population raster",
+      "4. Population grid",
+      "5. Population grid 300 m",
+      "6. Health reprojection + capacity",
+      "7. Urban mask",
+      "8. Clip grid to urban mask",
+      "9. Nearest accessibility"
+    ],
+    codeTitle1: "Python — walk network preprocessing",
+    codeTitle2: "Python — nearest healthcare accessibility",
+    codeDesc1: "OSMnx → walk network → nodes / edges → GeoJSON",
+    codeDesc2: "population grid → nearest facility → dist_m / access_score",
     codeLoadError: "Ошибка загрузки кода"
   },
 
   en: {
+    introTitle: "Case",
+    introText:
+      "This case examines pedestrian access to healthcare infrastructure across urban Dakar. I built a working GIS pipeline based on OpenStreetMap, WorldPop, and Python to measure how unevenly access to the nearest healthcare facility is distributed across the city.",
+    keyFindingsTitle: "Key results",
+    keyFindings: [
+      "Median distance to the nearest healthcare facility: ~1.05 km",
+      "25% of populated cells are within 457 m of the nearest facility",
+      "25% of populated cells are farther than 4.12 km",
+      "The central urban fabric is better served than peripheral zones"
+    ],
     maps: "Maps",
     pdf: "PDF",
-    workflow: "QGIS workflow",
+    workflow: "Workflow",
     python: "Python / GeoPandas",
+    pipelineTitle: "Full pipeline",
+    pipelineIntro: "Complete script sequence used in this case.",
     pdfOpen: "Open PDF",
     fileOpen: "Open file",
     copy: "Copy",
     copied: "Copied",
-    imageTitles: ["NDVI Bamako", "Resource proximity"],
-    pdfTitles: ["Resource analysis", "Transport report"],
+    imageTitles: [
+      "Distance to nearest healthcare facility",
+      "Simple healthcare access score"
+    ],
+    pdfTitles: ["Dakar Healthcare Access Proxy — Field Brief"],
     workflowItems: [
       {
-        title: "Resource accessibility analysis",
+        title: "Workflow 1 — nearest facility accessibility model",
         steps: [
-          "Load OSM data",
-          "Filter layers",
-          "Create buffers",
-          "Calculate distances",
-          "Export the map"
+          "Download Dakar pedestrian street network from OSM",
+          "Extract healthcare facilities from OSM",
+          "Clip the WorldPop population raster to the study area",
+          "Convert the population raster to a grid and aggregate to 300 m",
+          "Calculate the distance from populated cells to the nearest facility",
+          "Compute a simple access score",
+          "Export the final GIS-ready layer"
         ]
       },
       {
-        title: "Mining proximity workflow",
+        title: "Workflow 2 — urban mask and study area refinement",
         steps: [
-          "Import mining points",
-          "Create 5–10 km buffer",
-          "Intersect with roads and settlements",
-          "Assess accessibility",
-          "Export results"
+          "Reproject the street network to a metric CRS",
+          "Build a buffer around the street network",
+          "Merge buffers into a single urban mask",
+          "Clip the population grid to the actual urban area",
+          "Recalculate distance-based accessibility",
+          "Compare results before and after study area refinement"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
-    codeDesc1:
-      "Here you can describe what the script does, which map it relates to and what result it produces.",
-    codeDesc2:
-      "Here you can keep a second script: alternative pipeline, spatial join, buffers, export or any other analysis segment.",
+    pipelineLabels: [
+      "1. Walk network",
+      "2. Health facilities",
+      "3. Clip population raster",
+      "4. Population grid",
+      "5. Population grid 300 m",
+      "6. Health reprojection + capacity",
+      "7. Urban mask",
+      "8. Clip grid to urban mask",
+      "9. Nearest accessibility"
+    ],
+    codeTitle1: "Python — walk network preprocessing",
+    codeTitle2: "Python — nearest healthcare accessibility",
+    codeDesc1: "OSMnx → walk network → nodes / edges → GeoJSON",
+    codeDesc2: "population grid → nearest facility → dist_m / access_score",
     codeLoadError: "Code loading error"
   },
 
   fr: {
+    introTitle: "Cas",
+    introText:
+      "Ce cas examine l'accessibilité piétonne à l'infrastructure de santé dans l'espace urbain de Dakar. J'ai construit un pipeline SIG fonctionnel à partir d'OpenStreetMap, de WorldPop et de Python afin de mesurer à quel point l'accès au service de santé le plus proche est inégalement réparti dans la ville.",
+    keyFindingsTitle: "Résultats clés",
+    keyFindings: [
+      "Distance médiane au service de santé le plus proche : ~1.05 km",
+      "25% des cellules peuplées se trouvent à moins de 457 m",
+      "25% des cellules peuplées sont à plus de 4.12 km",
+      "Le tissu urbain central est mieux desservi que les périphéries"
+    ],
     maps: "Cartes",
     pdf: "PDF",
-    workflow: "Workflow QGIS",
+    workflow: "Workflow",
     python: "Python / GeoPandas",
+    pipelineTitle: "Full pipeline",
+    pipelineIntro: "Séquence complète des scripts utilisés dans ce cas.",
     pdfOpen: "Ouvrir le PDF",
     fileOpen: "Ouvrir le fichier",
     copy: "Copier",
     copied: "Copié",
-    imageTitles: ["NDVI Bamako", "Proximité des ressources"],
-    pdfTitles: ["Analyse des ressources", "Rapport transport"],
+    imageTitles: [
+      "Distance jusqu'au service de santé le plus proche",
+      "Score simple d'accessibilité aux soins"
+    ],
+    pdfTitles: ["Dakar Healthcare Access Proxy — Field Brief"],
     workflowItems: [
       {
-        title: "Analyse de l'accessibilité des ressources",
+        title: "Workflow 1 — nearest facility accessibility model",
         steps: [
-          "Chargement des données OSM",
-          "Filtrage des couches",
-          "Création des buffers",
-          "Calcul des distances",
-          "Export de la carte"
+          "Téléchargement du réseau piétonnier de Dakar depuis OSM",
+          "Extraction des établissements de santé depuis OSM",
+          "Découpage du raster WorldPop sur la zone d’étude",
+          "Conversion du raster de population en grille et agrégation à 300 m",
+          "Calcul de la distance entre les cellules peuplées et l’établissement le plus proche",
+          "Calcul d’un score simple d’accessibilité",
+          "Export de la couche SIG finale"
         ]
       },
       {
-        title: "Workflow de proximité minière",
+        title: "Workflow 2 — urban mask and study area refinement",
         steps: [
-          "Import des points miniers",
-          "Buffer de 5–10 km",
-          "Intersection avec routes et localités",
-          "Évaluation de l'accessibilité",
-          "Export du résultat"
+          "Reprojection du réseau viaire dans une projection métrique",
+          "Création d’un buffer autour du réseau",
+          "Fusion des buffers en un masque urbain unique",
+          "Découpage de la grille de population à la zone urbaine réelle",
+          "Recalcul de l’accessibilité basée sur la distance",
+          "Comparaison des résultats avant et après l’affinement de la zone d’étude"
         ]
       }
     ],
-    codeTitle1: "Python — prétraitement",
-    codeTitle2: "Python — jointure spatiale",
-    codeDesc1:
-      "Ici tu peux décrire ce que fait le script, à quelle carte il correspond et quel résultat il produit.",
-    codeDesc2:
-      "Ici tu peux garder un deuxième script : pipeline alternatif, jointure spatiale, buffers, export ou tout autre segment d'analyse.",
+    pipelineLabels: [
+      "1. Walk network",
+      "2. Health facilities",
+      "3. Clip population raster",
+      "4. Population grid",
+      "5. Population grid 300 m",
+      "6. Health reprojection + capacity",
+      "7. Urban mask",
+      "8. Clip grid to urban mask",
+      "9. Nearest accessibility"
+    ],
+    codeTitle1: "Python — prétraitement du réseau piétonnier",
+    codeTitle2: "Python — accessibilité au service de santé le plus proche",
+    codeDesc1: "OSMnx → walk network → nodes / edges → GeoJSON",
+    codeDesc2: "population grid → nearest facility → dist_m / access_score",
     codeLoadError: "Erreur de chargement du code"
   }
 };
@@ -183,6 +267,27 @@ const translations = {
       color: #1d3d67;
       font-size: 28px;
       letter-spacing: -0.02em;
+    }
+
+    .intro-text {
+      color: #425b78;
+      line-height: 1.72;
+      font-size: 15px;
+      margin-bottom: 16px;
+      max-width: 950px;
+    }
+
+    .findings-title {
+      color: #284a73;
+      margin: 18px 0 10px;
+      font-size: 18px;
+    }
+
+    .findings-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #425b78;
+      line-height: 1.8;
     }
 
     .image-grid {
@@ -218,7 +323,7 @@ const translations = {
 
     .pdf-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 16px;
     }
 
@@ -265,6 +370,32 @@ const translations = {
       padding-left: 18px;
       line-height: 1.7;
       color: #425b78;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .pipeline-card {
+      background: #fbfdff;
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .pipeline-card h3 {
+      margin: 0 0 10px;
+      color: #284a73;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .pipeline-card a {
+      color: #174b87;
+      font-weight: 600;
+      font-size: 14px;
     }
 
     .code-grid {
@@ -335,14 +466,35 @@ const translations = {
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
+    @media (max-width: 1100px) {
+      .pipeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 900px) {
       .image-grid,
-      .pdf-grid,
-      .workflow-grid {
+      .workflow-grid,
+      .pipeline-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
+
+  <div class="block">
+    <h2 id="intro-heading">{translations.ru.introTitle}</h2>
+    <div class="intro-text" id="intro-text">{translations.ru.introText}</div>
+
+    <h3 class="findings-title" id="findings-heading">
+      {translations.ru.keyFindingsTitle}
+    </h3>
+
+    <ul class="findings-list" id="findings-list">
+      {translations.ru.keyFindings.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
 
   <div class="block">
     <h2 id="maps-heading">{translations.ru.maps}</h2>
@@ -407,7 +559,7 @@ const translations = {
         </div>
 
         <div class="code-top">
-          <a href="/assets/bamako/code/analysis.py" target="_blank" class="code-open">
+          <a href="/assets/dakar/code/dakar_walk_network.py" target="_blank" class="code-open">
             {translations.ru.fileOpen}
           </a>
           <button class="btn copy-btn" onclick="copyCode('code1', this)">
@@ -426,7 +578,7 @@ const translations = {
         </div>
 
         <div class="code-top">
-          <a href="/assets/bamako/code/analysis2.py" target="_blank" class="code-open">
+          <a href="/assets/dakar/code/accessibility_nearest.py" target="_blank" class="code-open">
             {translations.ru.fileOpen}
           </a>
           <button class="btn copy-btn" onclick="copyCode('code2', this)">
@@ -436,6 +588,22 @@ const translations = {
 
         <pre class="code-block" id="code2">Загрузка...</pre>
       </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 id="pipeline-heading">{translations.ru.pipelineTitle}</h2>
+    <div class="intro-text" id="pipeline-intro">{translations.ru.pipelineIntro}</div>
+
+    <div class="pipeline-grid">
+      {pipelineFiles.map((file, index) => (
+        <div class="pipeline-card">
+          <h3 id={`pipeline-label-${index}`}>{translations.ru.pipelineLabels[index]}</h3>
+          <a href={file} target="_blank" class="code-open">
+            {translations.ru.fileOpen}
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 
@@ -460,14 +628,42 @@ const translations = {
       });
     }
 
+    function renderFindings(t) {
+      const findingsEl = document.getElementById("findings-list");
+      if (!findingsEl) return;
+
+      findingsEl.innerHTML = "";
+      t.keyFindings.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        findingsEl.appendChild(li);
+      });
+    }
+
+    function renderPipelineLabels(t) {
+      t.pipelineLabels.forEach((label, index) => {
+        const el = document.getElementById(`pipeline-label-${index}`);
+        if (el) el.textContent = label;
+      });
+    }
+
     function setDakarLang(lang) {
       const t = i18n[lang];
       if (!t) return;
 
+      document.getElementById("intro-heading").textContent = t.introTitle;
+      document.getElementById("intro-text").textContent = t.introText;
+      document.getElementById("findings-heading").textContent = t.keyFindingsTitle;
       document.getElementById("maps-heading").textContent = t.maps;
       document.getElementById("pdf-heading").textContent = t.pdf;
       document.getElementById("workflow-heading").textContent = t.workflow;
       document.getElementById("python-heading").textContent = t.python;
+      document.getElementById("pipeline-heading").textContent = t.pipelineTitle;
+      document.getElementById("pipeline-intro").textContent = t.pipelineIntro;
+
+      renderFindings(t);
+      renderWorkflowItems(t);
+      renderPipelineLabels(t);
 
       t.imageTitles.forEach((title, index) => {
         const el = document.getElementById(`image-title-${index}`);
@@ -478,8 +674,6 @@ const translations = {
         const el = document.getElementById(`pdf-title-${index}`);
         if (el) el.textContent = title;
       });
-
-      renderWorkflowItems(t);
 
       document.getElementById("code-title-1").textContent = t.codeTitle1;
       document.getElementById("code-title-2").textContent = t.codeTitle2;
@@ -534,7 +728,7 @@ const translations = {
       setDakarLang(event.detail.lang);
     });
 
-    loadCode("code1", "/assets/bamako/code/analysis.py");
-    loadCode("code2", "/assets/bamako/code/analysis2.py");
+    loadCode("code1", "/assets/dakar/code/dakar_walk_network.py");
+    loadCode("code2", "/assets/dakar/code/accessibility_nearest.py");
   </script>
 </SiteLayout2>
