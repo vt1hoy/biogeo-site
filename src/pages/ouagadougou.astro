@@ -5,17 +5,17 @@ const pageTranslations = {
   ru: {
     title: "Уагадугу — сельское хозяйство",
     subtitle:
-      "Здесь собираются карты, PDF, workflow и код по теме сельского хозяйства, землепользования, инфраструктуры и пространственного анализа."
+      "Пилотная GIS-модель agricultural suitability для Centre-Ouest, Burkina Faso на основе NDVI, NDWI, дорожной доступности и классификации пригодности."
   },
   en: {
     title: "Ouagadougou — agriculture",
     subtitle:
-      "Maps, PDF, workflows and code for agriculture, land use, infrastructure and spatial analysis."
+      "Pilot GIS model of agricultural suitability for Centre-Ouest, Burkina Faso based on NDVI, NDWI, road accessibility and suitability classification."
   },
   fr: {
     title: "Ouagadougou — agriculture",
     subtitle:
-      "Cartes, PDF, workflows et code sur l'agriculture, l'usage des terres, les infrastructures et l'analyse spatiale."
+      "Modèle SIG pilote de convenance agricole pour le Centre-Ouest, Burkina Faso, basé sur le NDVI, le NDWI, l’accessibilité routière et la classification de convenance."
   }
 };
 
@@ -30,137 +30,207 @@ const images = [
 
 const pdfs = [
   {
-    file: "/assets/ouagadougou/pdf/t1.pdf"
+    file: "/assets/ouagadougou/pdf/Agrimod.pdf"
+  }
+];
+
+const pipelineScripts = [
+  {
+    name: "1. Load_roads.py",
+    file: "/assets/ouagadougou/code/load_roads.py"
   },
   {
-    file: "/assets/ouagadougou/pdf/t2.pdf"
+    name: "2. Distance_raster.py",
+    file: "/assets/ouagadougou/code/distance_raster.py"
+  },
+  {
+    name: "3. Lign_rasters.py",
+    file: "/assets/ouagadougou/code/align_rasters.py"
+  },
+  {
+    name: "4. Agri_model.py",
+    file: "/assets/ouagadougou/code/agri_model.py"
   }
 ];
 
 const translations = {
   ru: {
+    caseLabel: "Кейс",
+    caseIntro:
+      "Этот кейс представляет пилотную spatial model сельскохозяйственной пригодности для региона Centre-Ouest в Burkina Faso. Модель собирает в один suitability index состояние растительности, moisture availability и proximity to roads, чтобы показать, где agricultural potential относительно выше, а где он ограничен.",
+    caseResultsTitle: "Что получилось",
+    caseResults: [
+      "Высокая пригодность в основном проявляется в peri-urban и rural зонах, где растительность выражена сильнее, а фрагментация землепользования ниже.",
+      "Низкая пригодность концентрируется в urban core Ouagadougou, где vegetation cover слабее и land use более интенсивен.",
+      "Дороги улучшают accessibility, но не компенсируют экологические ограничения в плотно застроенных участках.",
+      "Итоговая карта показывает переход от менее пригодного центра к более перспективным окружающим территориям."
+    ],
     maps: "Карты",
     pdf: "PDF",
     workflow: "QGIS workflow",
     python: "Python / GeoPandas",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Полная последовательность скриптов по кейсу",
     pdfOpen: "Открыть PDF",
     fileOpen: "Открыть файл",
+    scriptOpen: "Скачать / открыть",
     copy: "Копировать",
     copied: "Скопировано",
-    imageTitles: ["NDVI Ouagadougou", "Agriculture proximity"],
-    pdfTitles: ["Agriculture analysis", "Land use report"],
+    imageTitles: [
+      "Agricultural suitability map",
+      "Suitability classification and road accessibility"
+    ],
+    pdfTitles: [
+      "Agricultural Suitability Model — Field Brief"
+    ],
     workflowItems: [
       {
-        title: "Agriculture accessibility analysis",
+        title: "Workflow 1 — подготовка данных",
         steps: [
-          "Загрузка OSM и агроданных",
-          "Фильтрация слоёв",
-          "Создание буферов",
-          "Расчёт расстояний",
-          "Экспорт карты"
+          "Мозаика сцен Landsat 8",
+          "Перепроецирование в EPSG:4326",
+          "Обрезка всех слоёв по границе GADM",
+          "Подготовка NDVI и NDWI",
+          "Выравнивание растровой сетки и разрешения"
         ]
       },
       {
-        title: "Land use workflow",
+        title: "Workflow 2 — модель пригодности",
         steps: [
-          "Импорт сельхозучастков",
-          "Буфер вокруг ключевых зон",
-          "Пересечение с дорогами и поселениями",
-          "Оценка доступности",
-          "Экспорт результата"
+          "Извлечение дорожной сети OSM",
+          "Растеризация дорог и построение distance raster",
+          "Нормализация и инверсия accessibility",
+          "Объединение NDVI, NDWI и Access",
+          "Классификация на low / medium / high"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
+    codeTitle1: "Python — preprocessing and alignment",
+    codeTitle2: "Python — suitability model",
     codeDesc1:
-      "Здесь может быть описание скрипта: что он делает, к какой карте относится и какой результат даёт.",
+      "Подготовка границы, дорог и спутниковых слоёв, alignment raster grid и проверка spatial consistency.",
     codeDesc2:
-      "Здесь может быть второй скрипт: альтернативный пайплайн, spatial join, буферы, экспорт или любой другой кусок анализа.",
+      "Расчёт NDVI / NDWI, distance raster, accessibility layer, composite suitability score и финальной классификации.",
     codeLoadError: "Ошибка загрузки кода"
   },
 
   en: {
+    caseLabel: "Case",
+    caseIntro:
+      "This case presents a pilot spatial model of agricultural suitability for the Centre-Ouest region of Burkina Faso. The model integrates vegetation condition, moisture availability and proximity to roads into a single suitability index in order to highlight where agricultural potential is relatively higher and where it remains constrained.",
+    caseResultsTitle: "Key results",
+    caseResults: [
+      "Higher suitability is mainly concentrated in peri-urban and rural zones where vegetation conditions are stronger and land fragmentation is lower.",
+      "Lower suitability is concentrated in the urban core of Ouagadougou, where vegetation cover is weaker and land use is more intensive.",
+      "Road infrastructure improves accessibility but does not compensate for environmental limitations in densely built-up areas.",
+      "The final map reveals a transition from lower suitability in the urban center to more favorable surrounding areas."
+    ],
     maps: "Maps",
     pdf: "PDF",
     workflow: "QGIS workflow",
     python: "Python / GeoPandas",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Complete script sequence used in this case",
     pdfOpen: "Open PDF",
     fileOpen: "Open file",
+    scriptOpen: "Download / open",
     copy: "Copy",
     copied: "Copied",
-    imageTitles: ["NDVI Ouagadougou", "Agriculture proximity"],
-    pdfTitles: ["Agriculture analysis", "Land use report"],
+    imageTitles: [
+      "Agricultural suitability map",
+      "Suitability classification and road accessibility"
+    ],
+    pdfTitles: [
+      "Agricultural Suitability Model — Field Brief"
+    ],
     workflowItems: [
       {
-        title: "Agriculture accessibility analysis",
+        title: "Workflow 1 — data preparation",
         steps: [
-          "Load OSM and agriculture data",
-          "Filter layers",
-          "Create buffers",
-          "Calculate distances",
-          "Export the map"
+          "Mosaic Landsat 8 scenes",
+          "Reproject to EPSG:4326",
+          "Clip all layers to GADM boundary",
+          "Prepare NDVI and NDWI",
+          "Align raster grid and resolution"
         ]
       },
       {
-        title: "Land use workflow",
+        title: "Workflow 2 — suitability model",
         steps: [
-          "Import agriculture plots",
-          "Create buffer around key zones",
-          "Intersect with roads and settlements",
-          "Assess accessibility",
-          "Export results"
+          "Extract OSM road network",
+          "Rasterize roads and build distance raster",
+          "Normalize and invert accessibility",
+          "Combine NDVI, NDWI and Access",
+          "Classify into low / medium / high"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
+    codeTitle1: "Python — preprocessing and alignment",
+    codeTitle2: "Python — suitability model",
     codeDesc1:
-      "Here you can describe what the script does, which map it relates to and what result it produces.",
+      "Preparation of the boundary, roads and satellite layers, raster alignment and spatial consistency checks.",
     codeDesc2:
-      "Here you can keep a second script: alternative pipeline, spatial join, buffers, export or any other analysis segment.",
+      "Calculation of NDVI / NDWI, distance raster, accessibility layer, composite suitability score and final classification.",
     codeLoadError: "Code loading error"
   },
 
   fr: {
+    caseLabel: "Cas",
+    caseIntro:
+      "Ce cas présente un modèle spatial pilote de convenance agricole pour la région du Centre-Ouest au Burkina Faso. Le modèle réunit l’état de la végétation, la disponibilité en eau et la proximité au réseau routier dans un indice unique de convenance afin de montrer où le potentiel agricole est relativement plus élevé et où il reste limité.",
+    caseResultsTitle: "Résultats clés",
+    caseResults: [
+      "Les zones de forte convenance se concentrent surtout dans les espaces périurbains et ruraux où la végétation est plus forte et la fragmentation du sol plus faible.",
+      "Les zones de faible convenance correspondent au noyau urbain de Ouagadougou, où la couverture végétale est réduite et l’usage du sol plus intensif.",
+      "Le réseau routier améliore l’accessibilité mais ne compense pas les limites environnementales dans les espaces densément bâtis.",
+      "La carte finale montre une transition du centre urbain moins favorable vers des espaces périphériques plus prometteurs."
+    ],
     maps: "Cartes",
     pdf: "PDF",
-    workflow: "Workflow QGIS",
+    workflow: "QGIS workflow",
     python: "Python / GeoPandas",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Séquence complète des scripts utilisés dans ce cas",
     pdfOpen: "Ouvrir le PDF",
     fileOpen: "Ouvrir le fichier",
+    scriptOpen: "Télécharger / ouvrir",
     copy: "Copier",
     copied: "Copié",
-    imageTitles: ["NDVI Ouagadougou", "Proximité agricole"],
-    pdfTitles: ["Analyse agricole", "Rapport d’usage des terres"],
+    imageTitles: [
+      "Carte de convenance agricole",
+      "Classification de convenance et accessibilité routière"
+    ],
+    pdfTitles: [
+      "Agricultural Suitability Model — Field Brief"
+    ],
     workflowItems: [
       {
-        title: "Analyse de l'accessibilité agricole",
+        title: "Workflow 1 — préparation des données",
         steps: [
-          "Chargement des données OSM et agricoles",
-          "Filtrage des couches",
-          "Création des buffers",
-          "Calcul des distances",
-          "Export de la carte"
+          "Mosaïque des scènes Landsat 8",
+          "Reprojection en EPSG:4326",
+          "Découpage de toutes les couches sur la limite GADM",
+          "Préparation de NDVI et NDWI",
+          "Alignement de la grille raster et de la résolution"
         ]
       },
       {
-        title: "Workflow d’usage des terres",
+        title: "Workflow 2 — modèle de convenance",
         steps: [
-          "Import des parcelles agricoles",
-          "Buffer autour des zones clés",
-          "Intersection avec routes et localités",
-          "Évaluation de l'accessibilité",
-          "Export du résultat"
+          "Extraction du réseau routier OSM",
+          "Rasterisation des routes et construction du raster de distance",
+          "Normalisation et inversion de l’accessibilité",
+          "Combinaison de NDVI, NDWI et Access",
+          "Classification en low / medium / high"
         ]
       }
     ],
-    codeTitle1: "Python — prétraitement",
-    codeTitle2: "Python — jointure spatiale",
+    codeTitle1: "Python — prétraitement et alignement",
+    codeTitle2: "Python — modèle de convenance",
     codeDesc1:
-      "Ici tu peux décrire ce que fait le script, à quelle carte il correspond et quel résultat il produit.",
+      "Préparation de la limite, des routes et des couches satellites, alignement raster et contrôle de cohérence spatiale.",
     codeDesc2:
-      "Ici tu peux garder un deuxième script : pipeline alternatif, jointure spatiale, buffers, export ou tout autre segment d'analyse.",
+      "Calcul de NDVI / NDWI, distance raster, couche d’accessibilité, score composite et classification finale.",
     codeLoadError: "Erreur de chargement du code"
   }
 };
@@ -179,10 +249,34 @@ const translations = {
 
     .block h2 {
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       color: #1d3d67;
       font-size: 28px;
       letter-spacing: -0.02em;
+    }
+
+    .case-text {
+      margin: 0;
+      color: #425b78;
+      line-height: 1.75;
+      font-size: 15px;
+      max-width: 980px;
+    }
+
+    .case-subtitle {
+      margin: 18px 0 10px;
+      font-size: 22px;
+      line-height: 1.1;
+      color: #1d3d67;
+      letter-spacing: -0.02em;
+    }
+
+    .case-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #425b78;
+      line-height: 1.75;
+      font-size: 15px;
     }
 
     .image-grid {
@@ -222,20 +316,23 @@ const translations = {
       gap: 16px;
     }
 
-    .pdf-card {
+    .pdf-card,
+    .pipeline-card {
       background: #fbfdff;
       border: 1px solid #e1e8f0;
       border-radius: 14px;
       padding: 18px;
     }
 
-    .pdf-card h3 {
+    .pdf-card h3,
+    .pipeline-card h3 {
       margin: 0 0 10px;
       color: #284a73;
       font-size: 18px;
     }
 
-    .pdf-card a {
+    .pdf-card a,
+    .pipeline-card a {
       color: #174b87;
       font-weight: 600;
       font-size: 14px;
@@ -265,6 +362,28 @@ const translations = {
       padding-left: 18px;
       line-height: 1.7;
       color: #425b78;
+      font-size: 15px;
+    }
+
+    .pipeline-top {
+      margin-bottom: 16px;
+      color: #5d6f86;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .script-name {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1d3d67;
+      font-family: Consolas, monospace;
     }
 
     .code-grid {
@@ -338,11 +457,24 @@ const translations = {
     @media (max-width: 900px) {
       .image-grid,
       .pdf-grid,
-      .workflow-grid {
+      .workflow-grid,
+      .pipeline-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
+
+  <div class="block">
+    <h2 id="case-heading">{translations.ru.caseLabel}</h2>
+    <p class="case-text" id="case-intro">{translations.ru.caseIntro}</p>
+
+    <h3 class="case-subtitle" id="case-results-title">{translations.ru.caseResultsTitle}</h3>
+    <ul class="case-list">
+      {translations.ru.caseResults.map((item, index) => (
+        <li id={`case-result-${index}`}>{item}</li>
+      ))}
+    </ul>
+  </div>
 
   <div class="block">
     <h2 id="maps-heading">{translations.ru.maps}</h2>
@@ -439,6 +571,22 @@ const translations = {
     </div>
   </div>
 
+  <div class="block">
+    <h2 id="pipeline-heading">{translations.ru.pipeline}</h2>
+    <div class="pipeline-top" id="pipeline-subtitle">{translations.ru.pipelineSubtitle}</div>
+
+    <div class="pipeline-grid">
+      {pipelineScripts.map((script, index) => (
+        <div class="pipeline-card">
+          <p class="script-name">{script.name}</p>
+          <a href={script.file} target="_blank" class="script-open" id={`script-open-${index}`}>
+            {translations.ru.scriptOpen}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
   <script define:vars={{ translations }}>
     const i18n = translations;
 
@@ -464,10 +612,21 @@ const translations = {
       const t = i18n[lang];
       if (!t) return;
 
+      document.getElementById("case-heading").textContent = t.caseLabel;
+      document.getElementById("case-intro").textContent = t.caseIntro;
+      document.getElementById("case-results-title").textContent = t.caseResultsTitle;
+
+      t.caseResults.forEach((item, index) => {
+        const el = document.getElementById(`case-result-${index}`);
+        if (el) el.textContent = item;
+      });
+
       document.getElementById("maps-heading").textContent = t.maps;
       document.getElementById("pdf-heading").textContent = t.pdf;
       document.getElementById("workflow-heading").textContent = t.workflow;
       document.getElementById("python-heading").textContent = t.python;
+      document.getElementById("pipeline-heading").textContent = t.pipeline;
+      document.getElementById("pipeline-subtitle").textContent = t.pipelineSubtitle;
 
       t.imageTitles.forEach((title, index) => {
         const el = document.getElementById(`image-title-${index}`);
@@ -488,6 +647,10 @@ const translations = {
 
       document.querySelectorAll(".pdf-open").forEach((el) => {
         el.textContent = t.pdfOpen;
+      });
+
+      document.querySelectorAll(".script-open").forEach((el) => {
+        el.textContent = t.scriptOpen;
       });
 
       document.querySelectorAll(".code-open").forEach((el) => {
