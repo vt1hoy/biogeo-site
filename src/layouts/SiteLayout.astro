@@ -159,7 +159,7 @@ const { pageTranslations } = Astro.props;
             <a href="/" id="nav-home">Главная</a>
             <a href="/about" id="nav-about">Обо мне</a>
             <a href="/biogeo" id="nav-biogeo">BIOGEO</a>
-            <a href="/sahel" id="nav-sahel">Сахель</a>
+          
             <a href="/humanitarian" id="nav-humanitarian">Гуманитарные миссии</a>
           </nav>
 
@@ -191,7 +191,8 @@ const { pageTranslations } = Astro.props;
         document.getElementById("nav-home").textContent = t.navHome;
         document.getElementById("nav-about").textContent = t.navAbout;
         document.getElementById("nav-biogeo").textContent = t.navBiogeo;
-        document.getElementById("nav-sahel").textContent = t.navSahel;
+        const sahel = document.getElementById("nav-sahel");
+        if (sahel) sahel.textContent = t.navSahel;
         document.getElementById("nav-humanitarian").textContent = t.navHumanitarian;
 
         document.getElementById("back").textContent = t.back;
