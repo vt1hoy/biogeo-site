@@ -1,0 +1,21 @@
+wsl --install -d Ubuntu
+
+sudo apt update
+sudo apt install -y git python3 python3-pip python3-venv build-essential
+
+git clone https://github.com/ArduPilot/ardupilot.git
+cd ardupilot
+git submodule update --init --recursive
+
+sudo apt install -y python3-pexpect python3-empy python3-future
+
+cd ~/ardupilot
+./waf configure --board sitl
+./waf copter
+
+cd ArduCopter
+python3 ../Tools/autotest/sim_vehicle.py -v ArduCopter --console --map
+
+pip3 install --user MAVProxy --break-system-packages
+
+echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc

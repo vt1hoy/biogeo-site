@@ -3,165 +3,235 @@ import SiteLayout2 from "../layouts/SiteLayout2.astro";
 
 const pageTranslations = {
   ru: {
-    title: "Бамако — ресурсы",
+    title: "Бамако - минеральные ресурсы",
     subtitle:
-      "Здесь собираются карты, PDF, workflow и код по теме ресурсов, инфраструктуры, логистики и пространственного анализа."
+      "Пилотный GIS-кейс по пространственному анализу месторождений в Мали на основе данных USGS MRDS: типы ресурсов, расстояние до Бамако и локальная кластеризация (100 км радиус)."
   },
   en: {
-    title: "Bamako — resources",
+    title: "Bamako — mineral resources",
     subtitle:
-      "Maps, PDF, workflows and code for resources, infrastructure, logistics and spatial analysis."
+      "Pilot GIS case study on spatial analysis of mineral occurrences in Mali using USGS MRDS data: commodity types, distance from Bamako, and local clustering (100 km radius)."
   },
   fr: {
-    title: "Bamako — ressources",
+    title: "Bamako — ressources minérales",
     subtitle:
-      "Cartes, PDF, workflows et code sur les ressources, les infrastructures, la logistique et l'analyse spatiale."
+      "Étude de cas SIG pilote sur l’analyse spatiale des occurrences minérales au Mali à partir des données USGS MRDS : types de ressources, distance à Bamako et clustering local (rayon de 100 km)."
   }
 };
 
 const images = [
   {
-    src: "/assets/bamako/images/cellid.png"
+    src: "/assets/bamako/images/commodity_type_distance.png"
   },
   {
-    src: "/assets/bamako/images/cellid2.png"
+    src: "/assets/bamako/images/local_clustering.png"
   }
 ];
 
 const pdfs = [
   {
-    file: "/assets/bamako/pdf/t1.pdf"
+    file: "/assets/bamako/pdf/brief_bamako.pdf"
+  }
+];
+
+const pipelineScripts = [
+  {
+    name: "1. distance.sql",
+    file: "/assets/bamako/code/distance.sql"
   },
   {
-    file: "/assets/bamako/pdf/t2.pdf"
+    name: "2. density.sql",
+    file: "/assets/bamako/code/density.sql"
+  },
+  {
+    name: "3. distance_class.sql",
+    file: "/assets/bamako/code/distance_class.sql"
+  },
+  {
+    name: "4. local_neighborhood.sql",
+    file: "/assets/bamako/code/local_neighborhood.sql"
   }
 ];
 
 const translations = {
   ru: {
+    caseLabel: "Кейс",
+    caseIntro:
+      "Этот кейс представляет пилотный spatial analysis распределения месторождений в Мали на основе данных USGS MRDS. Анализ включает классификацию по расстоянию до Бамако и оценку локальной плотности (100 км радиус), чтобы выявить пространственные паттерны и зоны концентрации ресурсов.",
+    caseResultsTitle: "Что получилось",
+    caseResults: [
+      "Выявлен выраженный кластер диатомитовых месторождений на севере Мали с высокой плотностью (до 9 соседей в радиусе 100 км).",
+      "Южная часть характеризуется более разреженной полиметаллической зоной (золото, литий, марганец).",
+      "Западный регион (Kayes) формирует отдельную зону с золотом, алюминием и алмазами.",
+      "Восточные месторождения (фосфаты и марганец) представлены изолированными точками с низкой плотностью.",
+      "Итоговая структура показывает контраст между кластеризованными и дисперсными типами ресурсов."
+    ],
     maps: "Карты",
     pdf: "PDF",
-    workflow: "QGIS workflow",
-    python: "Python / GeoPandas",
+    workflow: "Workflow",
+    python: "SQL / PostGIS",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Полная последовательность скриптов по кейсу",
     pdfOpen: "Открыть PDF",
     fileOpen: "Открыть файл",
+    scriptOpen: "Скачать / открыть",
     copy: "Копировать",
     copied: "Скопировано",
-    imageTitles: ["NDVI Bamako", "Resource proximity"],
-    pdfTitles: ["Resource analysis", "Transport report"],
+    imageTitles: [
+      "Типы ресурсов и расстояние до Бамако",
+      "Локальная плотность месторождений"
+    ],
+    pdfTitles: [
+      "Аналитическая записка"
+    ],
     workflowItems: [
       {
-        title: "Resource accessibility analysis",
+        title: "Workflow 1 — подготовка данных",
         steps: [
-          "Загрузка OSM данных",
-          "Фильтрация слоёв",
-          "Создание буферов",
-          "Расчёт расстояний",
-          "Экспорт карты"
+          "Импорт данных MRDS в PostGIS (shp2pgsql)",
+          "Проверка геометрии и структуры таблицы",
+          "Задание точки Бамако (reference point)",
+          "Подготовка атрибутов для анализа"
         ]
       },
       {
-        title: "Mining proximity workflow",
+        title: "Workflow 2 — пространственный анализ",
         steps: [
-          "Импорт точек месторождений",
-          "Буфер 5–10 км",
-          "Пересечение с дорогами и поселениями",
-          "Оценка доступности",
-          "Экспорт результата"
+          "Расчёт расстояния до Бамако (distance_class.sql)",
+          "Классификация на high / medium / low",
+          "Расчёт локальной плотности (ST_DWithin, 100 км)",
+          "Подсчёт соседних точек (local_neighborhood.sql)",
+          "Экспорт результатов в QGIS",
+          "Визуализация и оформление карт"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
+    codeTitle1: "SQL — классификация по расстоянию до Бамако",
+    codeTitle2: "SQL — анализ локальной плотности (100 км)",
     codeDesc1:
-      "Здесь может быть описание скрипта: что он делает, к какой карте относится и какой результат даёт.",
+      "Рассчитывает расстояние от каждого месторождения до Бамако и классифицирует его по уровням доступности (high / medium / low)",
     codeDesc2:
-      "Здесь может быть второй скрипт: альтернативный пайплайн, spatial join, буферы, экспорт или любой другой кусок анализа.",
-    codeLoadError: "Ошибка загрузки кода"
+      "Определяет количество соседних месторождений в радиусе 100 км для оценки локальной плотности"
   },
 
   en: {
+    caseLabel: "Case",
+    caseIntro:
+      "This case study presents a pilot spatial analysis of mineral occurrences in Mali using USGS MRDS data. The analysis includes distance-based classification from Bamako and local density assessment (100 km radius) to identify spatial patterns and resource concentration zones.",
+    caseResultsTitle: "Key results",
+    caseResults: [
+      "A strong cluster of diatomite deposits is identified in northern Mali, with high density (up to 9 neighboring occurrences within 100 km).",
+      "The southern region shows a more dispersed polymetallic structure (gold, lithium, manganese).",
+      "The western region (Kayes) forms a distinct zone with gold, aluminum, and diamond occurrences.",
+      "Eastern deposits (phosphates and manganese) appear as isolated, low-density occurrences.",
+        "The overall pattern highlights a contrast between clustered and dispersed resource distributions."
+    ],
     maps: "Maps",
     pdf: "PDF",
-    workflow: "QGIS workflow",
-    python: "Python / GeoPandas",
+    workflow: "Workflow",
+    python: "SQL / PostGIS",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Complete script sequence used in this case",
     pdfOpen: "Open PDF",
     fileOpen: "Open file",
+    scriptOpen: "Download / open",
     copy: "Copy",
     copied: "Copied",
-    imageTitles: ["NDVI Bamako", "Resource proximity"],
-    pdfTitles: ["Resource analysis", "Transport report"],
+    imageTitles: [
+      "Commodity type and distance from Bamako",
+      "Local clustering of mineral occurrences"
+    ],
+    pdfTitles: [
+      "GIS Analysis Brief"
+    ],
     workflowItems: [
       {
-        title: "Resource accessibility analysis",
+        title: "Workflow 1 — data preparation",
         steps: [
-          "Load OSM data",
-          "Filter layers",
-          "Create buffers",
-          "Calculate distances",
-          "Export the map"
+          "Import MRDS data into PostGIS (shp2pgsql)",
+          "Validate geometry and table structure",
+          "Define Bamako reference point",
+          "Prepare attributes for analysis"
         ]
       },
       {
-        title: "Mining proximity workflow",
+        title: "Workflow 2 — spatial analysis",
         steps: [
-          "Import mining points",
-          "Create 5–10 km buffer",
-          "Intersect with roads and settlements",
-          "Assess accessibility",
-          "Export results"
+          "Compute distance to Bamako (distance_class.sql)",
+          "Classify into high / medium / low",
+          "Calculate local density",
+          "Count neighboring occurrences",
+          "Export results to QGIS",
+          "Visualization and map design"
         ]
       }
     ],
-    codeTitle1: "Python — preprocessing",
-    codeTitle2: "Python — spatial join",
+    codeTitle1: "SQL — distance-based classification from Bamako",
+    codeTitle2: "SQL — local neighborhood density analysis (100 km)",
     codeDesc1:
-      "Here you can describe what the script does, which map it relates to and what result it produces.",
+      "Calculates the distance from each occurrence to Bamako and classifies it into accessibility levels (high / medium / low)",
     codeDesc2:
-      "Here you can keep a second script: alternative pipeline, spatial join, buffers, export or any other analysis segment.",
-    codeLoadError: "Code loading error"
+      "Calculates the number of neighboring occurrences within a 100 km radius to estimate local density"
   },
 
   fr: {
+    caseLabel: "Cas",
+    caseIntro:
+      "Cette étude présente une analyse spatiale pilote des occurrences minérales au Mali à partir des données USGS MRDS. L’analyse inclut une classification par distance à Bamako et une évaluation de la densité locale (rayon de 100 km) afin d’identifier les structures spatiales et les zones de concentration.",
+    caseResultsTitle: "Résultats clés",
+    caseResults: [
+      "Un cluster marqué de diatomite est identifié dans le nord du Mali, avec une forte densité (jusqu’à 9 occurrences voisines dans un rayon de 100 km).",
+      "La région sud présente une structure polymétallique plus dispersée (or, lithium, manganèse).",
+      "La région ouest (Kayes) forme une zone distincte avec or, aluminium et diamants.",
+      "Les occurrences à l’est (phosphates et manganèse) sont isolées et de faible densité.",
+      "L’ensemble met en évidence un contraste entre distributions clusterisées et dispersées."
+    ],
     maps: "Cartes",
     pdf: "PDF",
-    workflow: "Workflow QGIS",
-    python: "Python / GeoPandas",
+    workflow: "Workflow",
+    python: "SQL / PostGIS",
+    pipeline: "Full pipeline",
+    pipelineSubtitle: "Séquence complète des scripts utilisés dans ce cas",
     pdfOpen: "Ouvrir le PDF",
     fileOpen: "Ouvrir le fichier",
+    scriptOpen: "Télécharger / ouvrir",
     copy: "Copier",
     copied: "Copié",
-    imageTitles: ["NDVI Bamako", "Proximité des ressources"],
-    pdfTitles: ["Analyse des ressources", "Rapport transport"],
+    imageTitles: [
+      "Type de ressource et distance à Bamako",
+      "Clustering local des occurrences minérales"
+    ],
+    pdfTitles: [
+      "Note d’analyse SIG"
+    ],
     workflowItems: [
       {
-        title: "Analyse de l'accessibilité des ressources",
+        title: "Workflow 1 — préparation des données",
         steps: [
-          "Chargement des données OSM",
-          "Filtrage des couches",
-          "Création des buffers",
-          "Calcul des distances",
-          "Export de la carte"
+          "Import des données MRDS dans PostGIS (shp2pgsql)",
+          "Vérification de la géométrie et de la structure",
+          "Définition du point de référence (Bamako)",
+          "Préparation des attributs pour l’analyse"
         ]
       },
       {
-        title: "Workflow de proximité minière",
+        title: "Workflow 2 — analyse spatiale",
         steps: [
-          "Import des points miniers",
-          "Buffer de 5–10 km",
-          "Intersection avec routes et localités",
-          "Évaluation de l'accessibilité",
-          "Export du résultat"
+          "Calcul de la distance à Bamako (distance_class.sql)",
+          "Classification en high / medium / low",
+          "Calcul de la densité locale (100 km)",
+          "Comptage des occurrences voisines",
+          "Export vers QGIS",
+          "Visualisation et mise en carte"
         ]
       }
     ],
-    codeTitle1: "Python — prétraitement",
-    codeTitle2: "Python — jointure spatiale",
+    codeTitle1: "Python — prétraitement et alignement",
+    codeTitle2: "Python — modèle de convenance",
     codeDesc1:
-      "Ici tu peux décrire ce que fait le script, à quelle carte il correspond et quel résultat il produit.",
+      "Calcule la distance de chaque occurrence à Bamako et la classe selon le niveau d’accessibilité (high / medium / low)",
     codeDesc2:
-      "Ici tu peux garder un deuxième script : pipeline alternatif, jointure spatiale, buffers, export ou tout autre segment d'analyse.",
-    codeLoadError: "Erreur de chargement du code"
+      "Calcule le nombre d’occurrences voisines dans un rayon de 100 km pour estimer la densité locale"
   }
 };
 ---
@@ -179,10 +249,34 @@ const translations = {
 
     .block h2 {
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       color: #1d3d67;
       font-size: 28px;
       letter-spacing: -0.02em;
+    }
+
+    .case-text {
+      margin: 0;
+      color: #425b78;
+      line-height: 1.75;
+      font-size: 15px;
+      max-width: 980px;
+    }
+
+    .case-subtitle {
+      margin: 18px 0 10px;
+      font-size: 22px;
+      line-height: 1.1;
+      color: #1d3d67;
+      letter-spacing: -0.02em;
+    }
+
+    .case-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #425b78;
+      line-height: 1.75;
+      font-size: 15px;
     }
 
     .image-grid {
@@ -222,20 +316,23 @@ const translations = {
       gap: 16px;
     }
 
-    .pdf-card {
+    .pdf-card,
+    .pipeline-card {
       background: #fbfdff;
       border: 1px solid #e1e8f0;
       border-radius: 14px;
       padding: 18px;
     }
 
-    .pdf-card h3 {
+    .pdf-card h3,
+    .pipeline-card h3 {
       margin: 0 0 10px;
       color: #284a73;
       font-size: 18px;
     }
 
-    .pdf-card a {
+    .pdf-card a,
+    .pipeline-card a {
       color: #174b87;
       font-weight: 600;
       font-size: 14px;
@@ -265,6 +362,28 @@ const translations = {
       padding-left: 18px;
       line-height: 1.7;
       color: #425b78;
+      font-size: 15px;
+    }
+
+    .pipeline-top {
+      margin-bottom: 16px;
+      color: #5d6f86;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .script-name {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1d3d67;
+      font-family: Consolas, monospace;
     }
 
     .code-grid {
@@ -338,11 +457,24 @@ const translations = {
     @media (max-width: 900px) {
       .image-grid,
       .pdf-grid,
-      .workflow-grid {
+      .workflow-grid,
+      .pipeline-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
+
+  <div class="block">
+    <h2 id="case-heading">{translations.ru.caseLabel}</h2>
+    <p class="case-text" id="case-intro">{translations.ru.caseIntro}</p>
+
+    <h3 class="case-subtitle" id="case-results-title">{translations.ru.caseResultsTitle}</h3>
+    <ul class="case-list">
+      {translations.ru.caseResults.map((item, index) => (
+        <li id={`case-result-${index}`}>{item}</li>
+      ))}
+    </ul>
+  </div>
 
   <div class="block">
     <h2 id="maps-heading">{translations.ru.maps}</h2>
@@ -351,7 +483,7 @@ const translations = {
       {images.map((item, index) => (
         <div class="image-card">
           <a href={item.src} target="_blank">
-            <img src={item.src} alt={`bamako-image-${index + 1}`} />
+            <img src={item.src} alt={`ouagadougou-image-${index + 1}`} />
           </a>
           <div class="image-caption">
             <a href={item.src} target="_blank" id={`image-title-${index}`}>
@@ -407,7 +539,7 @@ const translations = {
         </div>
 
         <div class="code-top">
-          <a href="/assets/bamako/code/analysis.py" target="_blank" class="code-open">
+          <a href="/assets/bamako/code/distance_class.sql" target="_blank" class="code-open">
             {translations.ru.fileOpen}
           </a>
           <button class="btn copy-btn" onclick="copyCode('code1', this)">
@@ -426,7 +558,7 @@ const translations = {
         </div>
 
         <div class="code-top">
-          <a href="/assets/bamako/code/analysis2.py" target="_blank" class="code-open">
+          <a href="/assets/bamako/code/local_neighborhood.sql" target="_blank" class="code-open">
             {translations.ru.fileOpen}
           </a>
           <button class="btn copy-btn" onclick="copyCode('code2', this)">
@@ -436,6 +568,22 @@ const translations = {
 
         <pre class="code-block" id="code2">Загрузка...</pre>
       </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 id="pipeline-heading">{translations.ru.pipeline}</h2>
+    <div class="pipeline-top" id="pipeline-subtitle">{translations.ru.pipelineSubtitle}</div>
+
+    <div class="pipeline-grid">
+      {pipelineScripts.map((script, index) => (
+        <div class="pipeline-card">
+          <p class="script-name">{script.name}</p>
+          <a href={script.file} target="_blank" class="script-open" id={`script-open-${index}`}>
+            {translations.ru.scriptOpen}
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 
@@ -460,14 +608,25 @@ const translations = {
       });
     }
 
-    function setBamakoLang(lang) {
+    function setOuagaLang(lang) {
       const t = i18n[lang];
       if (!t) return;
+
+      document.getElementById("case-heading").textContent = t.caseLabel;
+      document.getElementById("case-intro").textContent = t.caseIntro;
+      document.getElementById("case-results-title").textContent = t.caseResultsTitle;
+
+      t.caseResults.forEach((item, index) => {
+        const el = document.getElementById(`case-result-${index}`);
+        if (el) el.textContent = item;
+      });
 
       document.getElementById("maps-heading").textContent = t.maps;
       document.getElementById("pdf-heading").textContent = t.pdf;
       document.getElementById("workflow-heading").textContent = t.workflow;
       document.getElementById("python-heading").textContent = t.python;
+      document.getElementById("pipeline-heading").textContent = t.pipeline;
+      document.getElementById("pipeline-subtitle").textContent = t.pipelineSubtitle;
 
       t.imageTitles.forEach((title, index) => {
         const el = document.getElementById(`image-title-${index}`);
@@ -488,6 +647,10 @@ const translations = {
 
       document.querySelectorAll(".pdf-open").forEach((el) => {
         el.textContent = t.pdfOpen;
+      });
+
+      document.querySelectorAll(".script-open").forEach((el) => {
+        el.textContent = t.scriptOpen;
       });
 
       document.querySelectorAll(".code-open").forEach((el) => {
@@ -528,13 +691,13 @@ const translations = {
     };
 
     const savedLang = localStorage.getItem("lang") || "ru";
-    setBamakoLang(savedLang);
+    setOuagaLang(savedLang);
 
     window.addEventListener("languageChanged", (event) => {
-      setBamakoLang(event.detail.lang);
+      setOuagaLang(event.detail.lang);
     });
 
-    loadCode("code1", "/assets/bamako/code/analysis.py");
-    loadCode("code2", "/assets/bamako/code/analysis2.py");
+    loadCode("code1", "/assets/bamako/code/distance_class.sql");
+    loadCode("code2", "/assets/bamako/code/local_neighborhood.sql");
   </script>
 </SiteLayout2>

@@ -20,29 +20,35 @@ const content = {
   ru: {
     introTitle: "Фокус",
     introText:
-      "Здесь я собираю миссии, организации и позиции, которые мне интересны. Страница нужна как рабочий список наблюдений и ориентир для развития портфолио.",
+      "Список целевых организаций и миссий с разбором задач, требований и используемых инструментов. Использую как основу для откликов, подготовки кейсов и планирования работы в регионе.",
     missionTitle: "Миссии",
     noteTitle: "Примечание",
     noteText:
-      "Для каждой миссии можно хранить страну, контекст, задачи, визуалы и свои комментарии. Потом это можно использовать как ориентир для кейсов и откликов."
+      "Для каждой миссии можно хранить страну, контекст, задачи, визуалы и свои комментарии. Потом это можно использовать как ориентир для кейсов и откликов.",
+    keyTasks: "Задачи",
+    requirementsTitle: "Требования"
   },
   en: {
     introTitle: "Focus",
     introText:
-      "Here I collect missions, organizations and positions that interest me. This page works as a watchlist and a reference point for portfolio development.",
+      "List of target organizations and missions with analysis of tasks, requirements, and tools used. Used as a base for applications, case development, and regional work planning.",
     missionTitle: "Missions",
     noteTitle: "Note",
     noteText:
-      "For each mission you can store country, context, tasks, visuals and personal comments. Later this can guide cases and applications."
+      "For each mission you can store country, context, tasks, visuals and personal comments. Later this can guide cases and applications.",
+    keyTasks: "Key tasks",
+    requirementsTitle: "Requirements"
   },
   fr: {
     introTitle: "Focus",
     introText:
-      "Ici je rassemble les missions, les organisations et les postes qui m'intéressent. Cette page sert de watchlist et de repère pour développer le portfolio.",
+      "Liste des organisations et missions cibles avec analyse des tâches, des exigences et des outils utilisés. Utilisée comme base pour les candidatures, la préparation des cas et la planification du travail dans la région.",
     missionTitle: "Missions",
     noteTitle: "Note",
     noteText:
-      "Pour chaque mission, tu peux conserver le pays, le contexte, les tâches, les visuels et tes commentaires. Ensuite cela peut guider les cas et les candidatures."
+      "Pour chaque mission, tu peux conserver le pays, le contexte, les tâches, les visuels et tes commentaires. Ensuite cela peut guider les cas et les candidatures.",
+    keyTasks: "Tâches clés",
+    requirementsTitle: "Exigences"
   }
 };
 
@@ -50,25 +56,25 @@ const missions = [
   {
     key: "mission-1",
     ru: {
-      title: "REACH / IMPACT — Саhel watch",
-      place: "Нигер / Ниамей",
-      type: "GIS / гуманитарный анализ",
-      interest: "Интерес: вода, доступность, инфраструктура",
-      note: "Эта миссия интересна как вход в гуманитарный GIS через реальный региональный контекст."
+      title: "REACH / IMPACT — Сахель",
+      place: "Ниамей / Бамако / Уагадугу",
+      type: "оценка / доступность / перемещения / инфраструктура",
+      interest: "Оценка доступности базовых услуг (вода, медицина), анализ перемещений населения (IDP), инфраструктура и покрытие сервисов, пространственный анализ для гуманитарных оценок.",
+      note: "ГИС, QGIS, обработка данных (Excel/CSV), базовый Python, работа с OSM/WorldPop, французский или английский."
     },
     en: {
-      title: "REACH / IMPACT — Sahel watch",
-      place: "Niger / Niamey",
-      type: "GIS / humanitarian analysis",
-      interest: "Interest: water, accessibility, infrastructure",
-      note: "This mission is interesting as an entry into humanitarian GIS through real regional context."
+      title: "REACH / IMPACT — Sahel",
+      place: "Niamey / Bamako / Ouagadougou",
+      type: "assessment / accessibility / displacement / infrastructure",
+      interest: "Accessibility of basic services (water, healthcare), displacement analysis (IDPs), infrastructure and service coverage, spatial analysis for humanitarian assessments.",
+      note: "GIS, QGIS, data handling (Excel/CSV), basic Python, OSM/WorldPop data, French or English."
     },
     fr: {
-      title: "REACH / IMPACT — veille Sahel",
-      place: "Niger / Niamey",
-      type: "SIG / analyse humanitaire",
-      interest: "Intérêt : eau, accessibilité, infrastructures",
-      note: "Cette mission est intéressante comme porte d'entrée dans le SIG humanitaire via un contexte régional réel."
+      title: "REACH / IMPACT — Sahel",
+      place: "Sahel (Niamey / Bamako / Ouagadougou)",
+      type: "évaluation / accessibilité / déplacements / infrastructures",
+      interest: "Accessibilité des services de base (eau, santé), analyse des déplacements (PDI), infrastructures et couverture des services, analyse spatiale pour les évaluations humanitaires.",
+      note: "SIG, QGIS, traitement de données (Excel/CSV), Python de base, données OSM/WorldPop, français ou anglais."
     },
     image1: "/assets/humanitarian/images/mission1a.png",
     image2: "/assets/humanitarian/images/mission1b.png"
@@ -76,28 +82,54 @@ const missions = [
   {
     key: "mission-2",
     ru: {
-      title: "ACTED — логистика и полевой GIS",
-      place: "Мали / Бамако",
-      type: "Полевые миссии / логистика / GIS",
-      interest: "Интерес: ресурсы, маршруты, доступность, supply",
-      note: "Здесь я бы смотрел на прикладное применение GIS в связке с полевой и логистической работой."
+      title: "INSO — безопасность и доступ",
+      place: "Уагадугу / Бамако / Ниамей",
+      type: "безопасность / инциденты / доступ / маршруты",
+      interest: "Картирование инцидентов, доступ, маршруты, анализ безопасности",
+      note: "ГИС, QGIS, анализ данных, картирование инцидентов, базовый Python, английский."
     },
     en: {
-      title: "ACTED — logistics and field GIS",
-      place: "Mali / Bamako",
-      type: "Field missions / logistics / GIS",
-      interest: "Interest: resources, routes, accessibility, supply",
-      note: "Here I would focus on applied GIS linked with field and logistics work."
+      title: "INSO — security and access",
+      place: "Ouagadougou / Bamako / Niamey",
+      type: "security / incidents / access / routes",
+      interest: "Incident mapping, access constraints, route analysis, security context",
+      note: "GIS, QGIS, data analysis, mapping incidents, basic Python, English."
     },
     fr: {
-      title: "ACTED — logistique et SIG terrain",
-      place: "Mali / Bamako",
-      type: "Missions terrain / logistique / SIG",
-      interest: "Intérêt : ressources, routes, accessibilité, supply",
-      note: "Ici je regarderais l'application du SIG en lien avec le terrain et la logistique."
+      title: "INSO — sécurité et accès",
+      place: "Ouagadougou / Bamako / Niamey",
+      type: "sécurité / incidents / accès / routes",
+      interest: "Сartographie des incidents, accès, routes, analyse sécuritaire",
+      note: "SIG, QGIS, analyse de données, cartographie des incidents, Python de base, anglais."
     },
     image1: "/assets/humanitarian/images/mission2a.png",
     image2: "/assets/humanitarian/images/mission2b.png"
+  },
+  {
+  key: "mission-3",
+  ru: {
+    title: "WFP — логистика и снабжение",
+    place: "Дакар / Бамако / Ниамей",
+    type: "логистика / supply / доступ / маршруты",
+    interest: "Анализ маршрутов, доступность, supply chains, распределение",
+    note: "ГИС, QGIS, понимание логистики, анализ данных, базовый Python, английский"
+  },
+  en: {
+    title: "WFP — logistics and supply",
+    place: "Dakar / Bamako / Niamey",
+    type: "logistics / supply / access / routes",
+    interest: "route analysis, accessibility, supply chains, distribution mapping",
+    note: "GIS, QGIS, logistics understanding, data analysis, basic Python, English"
+  },
+  fr: {
+    title: "WFP — logistique et approvisionnement",
+    place: "Dakar / Bamako / Niamey",
+    type: "logistique / supply / accès / routes",
+    interest: "analyse des routes, accessibilité, supply chains, distribution",
+    note: "SIG, QGIS, compréhension logistique, analyse de données, Python de base, anglais"
+  },
+  image1: "/assets/humanitarian/images/mission3a.png",
+  image2: "/assets/humanitarian/images/mission3b.png"
   }
 ];
 ---
@@ -106,9 +138,11 @@ const missions = [
   <style>
     .top-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
       margin-top: 24px;
+      width: 100%;
+      max-width: none;
     }
 
     .card {
@@ -132,7 +166,7 @@ const missions = [
     }
 
     .missions-block {
-      margin-top: 24px;
+      margin-top: 8px;
     }
 
     .missions-title {
@@ -244,12 +278,6 @@ const missions = [
       <p id="intro-text">{content.ru.introText}</p>
     </div>
 
-    <div class="card">
-      <h2 id="note-title">{content.ru.noteTitle}</h2>
-      <p id="note-text">{content.ru.noteText}</p>
-    </div>
-  </div>
-
   <div class="missions-block">
     <h2 class="missions-title" id="missions-title">{content.ru.missionTitle}</h2>
 
@@ -266,13 +294,13 @@ const missions = [
 
         <div class="mission-text">
           <div class="mission-text-block">
-            <h4>Interest</h4>
+            <h4 id={`${mission.key}-keyTasks-title`}>{content.ru.keyTasks}</h4>
             <p id={`${mission.key}-interest`}>{mission.ru.interest}</p>
           </div>
 
           <div class="mission-text-block">
-            <h4>Note</h4>
-            <p id={`${mission.key}-note`}>{mission.ru.note}</p>
+            <h4 id={`${mission.key}-requirements-title`}>{content.ru.requirementsTitle}</h4>
+            <p id={`${mission.key}-requirements`}>{mission.ru.note}</p>
           </div>
         </div>
 
@@ -303,8 +331,6 @@ const missions = [
       document.getElementById("intro-title").textContent = c.introTitle;
       document.getElementById("intro-text").textContent = c.introText;
       document.getElementById("missions-title").textContent = c.missionTitle;
-      document.getElementById("note-title").textContent = c.noteTitle;
-      document.getElementById("note-text").textContent = c.noteText;
 
       missions.forEach((mission) => {
         const t = mission[lang];
@@ -314,7 +340,13 @@ const missions = [
         document.getElementById(`${mission.key}-place`).textContent = t.place;
         document.getElementById(`${mission.key}-type`).textContent = t.type;
         document.getElementById(`${mission.key}-interest`).textContent = t.interest;
-        document.getElementById(`${mission.key}-note`).textContent = t.note;
+        document.getElementById(`${mission.key}-requirements`).textContent = t.note;
+
+        const keyTasksEl = document.getElementById(`${mission.key}-keyTasks-title`);
+        if (keyTasksEl) keyTasksEl.textContent = c.keyTasks;
+
+        const reqTitleEl = document.getElementById(`${mission.key}-requirements-title`);
+        if (reqTitleEl) reqTitleEl.textContent = c.requirementsTitle;
       });
     }
 
@@ -325,4 +357,7 @@ const missions = [
       setHumanitarianLang(event.detail.lang);
     });
   </script>
+
+  </div> <!-- закрывает missions-block -->
+  </div> <!-- закрывает top-grid -->
 </SiteLayout>

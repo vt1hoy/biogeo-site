@@ -4,7 +4,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 const pageTranslations = {
   ru: {
     title: "Обо мне",
-    subtitle: "Биогеография, GIS и работа с Африкой"
+    subtitle: "Биогеография, GIS и работа в Африке"
   },
   en: {
     title: "About",
@@ -20,86 +20,128 @@ const content = {
   ru: {
     sections: [
       {
-        title: "Кто я",
-        text: "Образование, МГУ, нефтянка, GIS, интерес к Африке."
+        title: "МГУ им. М. В. Ломоносова",
+        text: "Экология и природопользование, кафедра биогеографии географического ф-та. Тема диплома: \"Редкие растительные сообщества Алтае-Саянского оробиома\""
       },
       {
-        title: "Что я делаю",
-        text: "QGIS, карты, PDF, анализ, Python, spatial analysis."
-      },
-      {
-        title: "Куда иду",
-        text: "Сахель, ресурсы, гуманитарные миссии."
+        title: "Лукойл-Пермь",
+        text: "Диспетчер ПУ / Начальник ОПС. Сентябрь 2024 - Апрель 2026. Контроль за фондом скважин, координация производственных процессов."
       }
     ],
-    galleryTitles: ["Фото 1", "Фото 2"],
-    docsTitle: "CV",
+    galleryTitles: ["Вечная мерзлота, NCSCDv2", "Какао-бобы, ESG-риск", "Топография света, VIIRS data", "LTE в Африке, opencellid"],
+    docsTitle: "Портфолио",
     docsOpen: "Открыть PDF",
-    notesTitle: "Notes",
+    notesTitle: "Заметки",
     notes: [
-      "GIS как инструмент решений",
-      "Фокус на Африке",
-      "Полевой и прикладной подход"
+      "Готов к переезду",
+      "Зона интересов 12°-18° N; 15° W - 10° E, Дакар - Бамако - Уагадугу - Ниамей",
+      "Предпочтение работе в поле"
+    ],
+    booksTitle: "Любимые книги",
+    booksOpen: "Открыть файл",
+    books: [
+      {
+        title: "QGIS Training Manual",
+        file: "/assets/about/books/qgis-training-manual.pdf"
+      },
+      {
+        title: "GDAL Documentation",
+        file: "/assets/about/books/gdal-reference.pdf"
+      },
+      {
+        title: "Remote Sensing Notes",
+        file: "/assets/about/books/remote-sensing-notes.pdf"
+      }
     ]
   },
   en: {
     sections: [
       {
-        title: "Who I am",
-        text: "Education, MSU, oil sector, GIS, Africa focus."
+        title: "Lomonosov Moscow State University",
+        text: "Ecology and Environmental Management, Department of Biogeography, Faculty of Geography. Thesis: \"Rare Plant Communities of the Altai–Sayan Orobiome\""
       },
       {
-        title: "What I do",
-        text: "QGIS, maps, PDF, analysis, Python, spatial analysis."
-      },
-      {
-        title: "Where I am heading",
-        text: "Sahel, resources, humanitarian missions."
+        title: "Lukoil-Perm",
+        text: "Control Room Dispatcher (Sep 2024 – Apr 2026). Monitoring well stock, coordinating production processes"
       }
     ],
-    galleryTitles: ["Photo 1", "Photo 2"],
-    docsTitle: "CV",
+    galleryTitles: ["Permafrost, NCSCDv2", "Deforestation and ESG-risk", "Thopography of Human Light, VIIRS data", "Africa LTE, OenCellID data"],
+    docsTitle: "Portfolio",
     docsOpen: "Open PDF",
     notesTitle: "Notes",
     notes: [
-      "GIS as a decision tool",
-      "Africa focus",
-      "Applied field work"
+      "Ready to relocate",
+      "Area of interest: 12°–18° N; 15° W – 10° E (Dakar – Bamako – Ouagadougou – Niamey)",
+      "Preference for field work"
+    ],
+    booksTitle: "Favourite books",
+    booksOpen: "Open file",
+    books: [
+      {
+        title: "QGIS Training Manual",
+        file: "/assets/about/books/qgis-training-manual.pdf"
+      },
+      {
+        title: "GDAL Documentation",
+        file: "/assets/about/books/gdal-reference.pdf"
+      },
+      {
+        title: "Remote Sensing Notes",
+        file: "/assets/about/books/remote-sensing-notes.pdf"
+      }
     ]
   },
   fr: {
     sections: [
       {
-        title: "Qui je suis",
-        text: "Formation, MGU, pétrole, SIG, Afrique."
+        title: "Université d’État de Moscou Lomonossov",
+        text: "Écologie et gestion de l’environnement, département de biogéographie, faculté de géographie. Sujet de mémoire: \"Communautés végétales rares de l’orobiome Altaï-Sayan\""
       },
       {
-        title: "Ce que je fais",
-        text: "QGIS, cartes, PDF, analyse, Python."
-      },
-      {
-        title: "Où je vais",
-        text: "Sahel, ressources, missions humanitaires."
+        title: "Lukoil-Perm",
+        text: "Dispatcher (septembre 2024 – avril 2026). Suivi du parc de puits, coordination des processus de production"
       }
     ],
-    galleryTitles: ["Photo 1", "Photo 2"],
-    docsTitle: "CV",
+    galleryTitles: ["Permafrost, NCSCDv2", "Deforestation and ESG-risk", "Thopography of Human Light, VIIRS data", "Africa LTE, OenCellID data"],
+    docsTitle: "Portfolio",
     docsOpen: "Ouvrir le PDF",
-    notesTitle: "Notes",
+    notesTitle: "Remarques",
     notes: [
-      "SIG comme outil",
-      "Focus Afrique",
-      "Approche terrain"
+      "Prêt à se relocaliser",
+      "Zone d’intérêt : 12°–18° N ; 15° O – 10° E. Dakar – Bamako – Ouagadougou – Niamey",
+      "Préférence pour le travail de terrain"
+    ],
+    booksTitle: "Livres préférés",
+    booksOpen: "Ouvrir le fichier",
+    books: [
+      {
+        title: "QGIS Training Manual",
+        file: "/assets/about/books/qgis-training-manual.pdf"
+      },
+      {
+        title: "GDAL Documentation",
+        file: "/assets/about/books/gdal-reference.pdf"
+      },
+      {
+        title: "Remote Sensing Notes",
+        file: "/assets/about/books/remote-sensing-notes.pdf"
+      }
     ]
   }
 };
 
 const gallery = [
   {
-    src: "/assets/about/images/ghana.png"
+    src: "/assets/about/images/portfolio.png"
   },
   {
-    src: "/assets/about/images/img2.png"
+    src: "/assets/about/images/portfolio2.png"
+  },
+  {
+    src: "/assets/about/images/portfolio3.png"
+  },
+  {
+    src: "/assets/about/images/portfolio4.png"
   }
 ];
 
@@ -221,13 +263,32 @@ const docs = [
       color: #425b78;
     }
 
+    .books-block {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #d9e1ea;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(40, 60, 90, 0.05);
+}
+
+    .books-block h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #1d3d67;
+}
+
+    .books-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
     @media (max-width: 900px) {
-      .about-grid,
-      .gallery-grid,
-      .docs-grid {
+      .books-grid {
         grid-template-columns: 1fr;
-      }
-    }
+  }
+}
   </style>
 
   <div class="about-grid">
@@ -274,6 +335,21 @@ const docs = [
     </ul>
   </div>
 
+  <div class="books-block">
+  <h2 id="books-title">{content.ru.booksTitle}</h2>
+
+  <div class="books-grid">
+    {content.ru.books.map((book, index) => (
+      <div class="doc-card">
+        <h3 id={`book-title-${index}`}>{book.title}</h3>
+        <a href={book.file} target="_blank" id={`book-open-${index}`}>
+          {content.ru.booksOpen}
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
   <script define:vars={{ content }}>
     function setAboutLang(lang) {
       const t = content[lang];
@@ -306,6 +382,17 @@ const docs = [
         const el = document.getElementById(`note-${index}`);
         if (el) el.textContent = note;
       });
+
+      const booksTitle = document.getElementById("books-title");
+      if (booksTitle) booksTitle.textContent = t.booksTitle;
+
+      t.books.forEach((book, index) => {
+        const titleEl = document.getElementById(`book-title-${index}`);
+        const openEl = document.getElementById(`book-open-${index}`);
+
+        if (titleEl) titleEl.textContent = book.title;
+        if (openEl) openEl.textContent = t.booksOpen;
+});
     }
 
     const savedLang = localStorage.getItem("lang") || "ru";
