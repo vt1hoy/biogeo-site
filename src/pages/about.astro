@@ -37,20 +37,24 @@ const content = {
       "Зона интересов 12°-18° N; 15° W - 10° E, Дакар - Бамако - Уагадугу - Ниамей",
       "Предпочтение работе в поле"
     ],
-    booksTitle: "Любимые книги",
+    booksTitle: "Избранные статьи",
     booksOpen: "Открыть файл",
     books: [
       {
-        title: "QGIS Training Manual",
-        file: "/assets/about/books/qgis-training-manual.pdf"
+        title: "Enhanced Two-Step Floating Catchment Area (E2SFCA) Method for Measuring Spatial Accessibility to Primary Healthcare",
+        file: "/assets/about/articles/article1.pdf"
       },
       {
-        title: "GDAL Documentation",
-        file: "/assets/about/books/gdal-reference.pdf"
+        title: "High-resolution synthetic population mapping for quantifying disparities in disaster impacts: An application in the Bangladesh Coastal Zone",
+        file: "/assets/about/articles/article2.pdf"
       },
       {
-        title: "Remote Sensing Notes",
-        file: "/assets/about/books/remote-sensing-notes.pdf"
+        title: "A global map of travel time to cities to assess inequalities in accessibility in 2015",
+        file: "/assets/about/articles/article3.pdf"
+      },
+      {
+        title: "Humanitarian logistics network design under mixed uncertainty",
+        file: "/assets/about/articles/article4.pdf"
       }
     ]
   },
@@ -74,20 +78,24 @@ const content = {
       "Area of interest: 12°–18° N; 15° W – 10° E (Dakar – Bamako – Ouagadougou – Niamey)",
       "Preference for field work"
     ],
-    booksTitle: "Favourite books",
+    booksTitle: "Selected Articles",
     booksOpen: "Open file",
     books: [
       {
-        title: "QGIS Training Manual",
-        file: "/assets/about/books/qgis-training-manual.pdf"
+        title: "Enhanced Two-Step Floating Catchment Area (E2SFCA) Method for Measuring Spatial Accessibility to Primary Healthcare",
+        file: "/assets/about/articles/article1.pdf"
       },
       {
-        title: "GDAL Documentation",
-        file: "/assets/about/books/gdal-reference.pdf"
+        title: "High-resolution synthetic population mapping for quantifying disparities in disaster impacts: An application in the Bangladesh Coastal Zone",
+        file: "/assets/about/articles/article2.pdf"
       },
       {
-        title: "Remote Sensing Notes",
-        file: "/assets/about/books/remote-sensing-notes.pdf"
+        title: "A global map of travel time to cities to assess inequalities in accessibility in 2015",
+        file: "/assets/about/articles/article3.pdf"
+      },
+      {
+        title: "Humanitarian logistics network design under mixed uncertainty",
+        file: "/assets/about/articles/article4.pdf"
       }
     ]
   },
@@ -111,20 +119,24 @@ const content = {
       "Zone d’intérêt : 12°–18° N ; 15° O – 10° E. Dakar – Bamako – Ouagadougou – Niamey",
       "Préférence pour le travail de terrain"
     ],
-    booksTitle: "Livres préférés",
+    booksTitle: "Articles sélectionnés",
     booksOpen: "Ouvrir le fichier",
     books: [
       {
-        title: "QGIS Training Manual",
-        file: "/assets/about/books/qgis-training-manual.pdf"
+        title: "Enhanced Two-Step Floating Catchment Area (E2SFCA) Method for Measuring Spatial Accessibility to Primary Healthcare",
+        file: "/assets/about/articles/article1.pdf"
       },
       {
-        title: "GDAL Documentation",
-        file: "/assets/about/books/gdal-reference.pdf"
+        title: "High-resolution synthetic population mapping for quantifying disparities in disaster impacts: An application in the Bangladesh Coastal Zone",
+        file: "/assets/about/articles/article2.pdf"
       },
       {
-        title: "Remote Sensing Notes",
-        file: "/assets/about/books/remote-sensing-notes.pdf"
+        title: "A global map of travel time to cities to assess inequalities in accessibility in 2015",
+        file: "/assets/about/articles/article3.pdf"
+      },
+      {
+        title: "Humanitarian logistics network design under mixed uncertainty",
+        file: "/assets/about/articles/article4.pdf"
       }
     ]
   }
@@ -289,6 +301,15 @@ const docs = [
         grid-template-columns: 1fr;
   }
 }
+
+    .article-title {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+
+
+}
+
   </style>
 
   <div class="about-grid">
@@ -341,7 +362,9 @@ const docs = [
   <div class="books-grid">
     {content.ru.books.map((book, index) => (
       <div class="doc-card">
-        <h3 id={`book-title-${index}`}>{book.title}</h3>
+        <h3 class="article-title" id={`book-title-${index}`}>
+          {book.title}
+        </h3>
         <a href={book.file} target="_blank" id={`book-open-${index}`}>
           {content.ru.booksOpen}
         </a>

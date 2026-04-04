@@ -26,7 +26,9 @@ const content = {
     noteText:
       "Для каждой миссии можно хранить страну, контекст, задачи, визуалы и свои комментарии. Потом это можно использовать как ориентир для кейсов и откликов.",
     keyTasks: "Задачи",
-    requirementsTitle: "Требования"
+    requirementsTitle: "Требования",
+    image1: "Доступ к услугам и распределение перемещённого населения — регион Диффа, Нигер. Источник: REACH Initiative",
+    image2: "Границы застройки и дорожная сеть — Кая, Буркина-Фасо. Источник: REACH / UNHCR"
   },
   en: {
     introTitle: "Focus",
@@ -37,7 +39,9 @@ const content = {
     noteText:
       "For each mission you can store country, context, tasks, visuals and personal comments. Later this can guide cases and applications.",
     keyTasks: "Key tasks",
-    requirementsTitle: "Requirements"
+    requirementsTitle: "Requirements",
+    image1: "Access to services and displacement patterns — Diffa region, Niger. Source: REACH Initiative",
+    image2: "Urban extent and road network analysis — Kaya, Burkina Faso. Source: REACH / UNHCR"
   },
   fr: {
     introTitle: "Focus",
@@ -48,7 +52,9 @@ const content = {
     noteText:
       "Pour chaque mission, tu peux conserver le pays, le contexte, les tâches, les visuels et tes commentaires. Ensuite cela peut guider les cas et les candidatures.",
     keyTasks: "Tâches clés",
-    requirementsTitle: "Exigences"
+    requirementsTitle: "Exigences",
+    image1: "Accès aux services et répartition des populations déplacées — région de Diffa, Niger. Source: REACH Initiative",
+    image2: "Délimitation urbaine et réseau routier — Kaya, Burkina Faso. Source: REACH / UNHCR"
   }
 };
 
@@ -86,21 +92,27 @@ const missions = [
       place: "Уагадугу / Бамако / Ниамей",
       type: "безопасность / инциденты / доступ / маршруты",
       interest: "Картирование инцидентов, доступ, маршруты, анализ безопасности",
-      note: "ГИС, QGIS, анализ данных, картирование инцидентов, базовый Python, английский."
+      note: "ГИС, QGIS, анализ данных, картирование инцидентов, базовый Python, английский.",
+      img1: "Кластеры насилия в центральном Мали (регион Мопти). Пространственная концентрация инцидентов указывает на устойчивые зоны нестабильности. Источник: ACLED",
+      img2: "Распределение политического насилия в Западной Африке. Высокая плотность событий формирует зоны повышенного риска и ключевые коридоры нестабильности. Источник: ACLED"
     },
     en: {
       title: "INSO — security and access",
       place: "Ouagadougou / Bamako / Niamey",
       type: "security / incidents / access / routes",
       interest: "Incident mapping, access constraints, route analysis, security context",
-      note: "GIS, QGIS, data analysis, mapping incidents, basic Python, English."
+      note: "GIS, QGIS, data analysis, mapping incidents, basic Python, English.",
+      img1: "Violence clusters in central Mali (Mopti region). Spatial concentration of events highlights persistent insecurity zones. Source: ACLED",
+      img2: "Distribution of political violence in West Africa. High event density reveals risk zones and key instability corridors across the region. Source: ACLED"
     },
     fr: {
       title: "INSO — sécurité et accès",
       place: "Ouagadougou / Bamako / Niamey",
       type: "sécurité / incidents / accès / routes",
       interest: "Сartographie des incidents, accès, routes, analyse sécuritaire",
-      note: "SIG, QGIS, analyse de données, cartographie des incidents, Python de base, anglais."
+      note: "SIG, QGIS, analyse de données, cartographie des incidents, Python de base, anglais.",
+      img1: "Clusters de violence au centre du Mali (région de Mopti). La concentration spatiale des événements indique des zones d’insécurité persistantes. Source: ACLED",
+      img2: "Répartition de la violence politique en Afrique de l’Ouest. La forte densité d’événements met en évidence les zones à risque et les principaux corridors d’instabilité. Source: ACLED"
     },
     image1: "/assets/humanitarian/images/mission2a.png",
     image2: "/assets/humanitarian/images/mission2b.png"
@@ -112,21 +124,27 @@ const missions = [
     place: "Дакар / Бамако / Ниамей",
     type: "логистика / supply / доступ / маршруты",
     interest: "Анализ маршрутов, доступность, supply chains, распределение",
-    note: "ГИС, QGIS, понимание логистики, анализ данных, базовый Python, английский"
+    note: "ГИС, QGIS, понимание логистики, анализ данных, базовый Python, английский",
+    img1: "Хроническое недоедание и зоны AIC — Буркина-Фасо. Пространственное распределение уязвимости и уровней продовольственной нестабильности, используемое для приоритизации гуманитарной помощи. Источник: WFP",
+    img2: "Зоны хронического недоедания — Нигер. Региональная дифференциация продовольственной нестабильности, отражающая концентрацию кризисных территорий и приоритетные зоны вмешательства. Источник: WFP"
   },
   en: {
     title: "WFP — logistics and supply",
     place: "Dakar / Bamako / Niamey",
     type: "logistics / supply / access / routes",
     interest: "route analysis, accessibility, supply chains, distribution mapping",
-    note: "GIS, QGIS, logistics understanding, data analysis, basic Python, English"
+    note: "GIS, QGIS, logistics understanding, data analysis, basic Python, English",
+    img1: "Chronic malnutrition and AIC zones — Burkina Faso. Spatial distribution of vulnerability and food insecurity levels used for prioritizing humanitarian assistance. Source: WFP",
+    img2: "Chronic malnutrition zones — Niger. Regional differentiation of food insecurity highlighting crisis areas and priority zones for intervention. Source: WFP"
   },
   fr: {
     title: "WFP — logistique et approvisionnement",
     place: "Dakar / Bamako / Niamey",
     type: "logistique / supply / accès / routes",
     interest: "analyse des routes, accessibilité, supply chains, distribution",
-    note: "SIG, QGIS, compréhension logistique, analyse de données, Python de base, anglais"
+    note: "SIG, QGIS, compréhension logistique, analyse de données, Python de base, anglais",
+    img1: "Malnutrition chronique et zones AIC — Burkina Faso. Répartition spatiale de la vulnérabilité et des niveaux d’insécurité alimentaire utilisée pour prioriser l’aide humanitaire. Source : WFP",
+    img2: "Zones de malnutrition chronique — Niger. Différenciation régionale de l’insécurité alimentaire mettant en évidence les zones de crise et les priorités d’intervention. Source : WFP"
   },
   image1: "/assets/humanitarian/images/mission3a.png",
   image2: "/assets/humanitarian/images/mission3b.png"
@@ -309,15 +327,20 @@ const missions = [
             <a href={mission.image1} target="_blank">
               <img src={mission.image1} alt={`${mission.key}-image-1`} />
             </a>
-            <div class="mission-image-caption">Image 1</div>
+            <div class="mission-image-caption" id={`${mission.key}-img1`}>
+              {content.ru.image1}
+            </div>
           </div>
 
           <div class="mission-image-card">
             <a href={mission.image2} target="_blank">
               <img src={mission.image2} alt={`${mission.key}-image-2`} />
             </a>
-            <div class="mission-image-caption">Image 2</div>
+            <div class="mission-image-caption" id={`${mission.key}-img2`}>
+              {content.ru.image2}
+            </div>
           </div>
+          
         </div>
       </div>
     ))}
@@ -347,6 +370,12 @@ const missions = [
 
         const reqTitleEl = document.getElementById(`${mission.key}-requirements-title`);
         if (reqTitleEl) reqTitleEl.textContent = c.requirementsTitle;
+
+        const img1 = document.getElementById(`${mission.key}-img1`);
+        const img2 = document.getElementById(`${mission.key}-img2`);
+
+        if (img1) img1.textContent = t.img1 || c.image1;
+        if (img2) img2.textContent = t.img2 || c.image2;
       });
     }
 
