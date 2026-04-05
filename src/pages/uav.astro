@@ -126,12 +126,6 @@ const translations = {
   color: #5b6d85;
 }
 
-.code-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
 
 .code-open {
   color: #174b87;
@@ -162,7 +156,69 @@ const translations = {
   font-family: Consolas, monospace;
   font-size: 12px;
   max-height: 260px;
-  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.code-card,
+.code-block {
+  min-width: 0;
+}
+
+.code-card h3,
+.code-description,
+.code-open,
+.block p,
+.block li {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.code-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .block {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .block h2 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .block h3 {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .code-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .code-top {
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .code-block {
+    font-size: 11px;
+    padding: 12px;
+  }
 }
 </style>
 
