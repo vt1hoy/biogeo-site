@@ -112,7 +112,8 @@ const translations = {
     codeDesc1:
       "Расчёт уклона рельефа на основе DEM с использованием градиентов по осям X и Y.",
     codeDesc2:
-      "Расчёт накопления стока (D8) на основе DEM, показывающий количество ячеек, дренирующихся в каждую точку"
+      "Расчёт накопления стока (D8) на основе DEM, показывающий количество ячеек, дренирующихся в каждую точку",
+    codeLoadError: "Ошибка загрузки кода"
   },
 
   en: {
@@ -173,7 +174,8 @@ const translations = {
     codeDesc1:
       "Slope calculated from DEM using spatial gradients along X and Y directions",
     codeDesc2:
-      "D8 flow accumulation computed from DEM, representing the number of upstream cells draining into each pixel"
+      "D8 flow accumulation computed from DEM, representing the number of upstream cells draining into each pixel",
+    codeLoadError: "Code loading error"
   },
 
   fr: {
@@ -234,7 +236,8 @@ const translations = {
     codeDesc1:
       "Pente calculée à partir du DEM en utilisant les gradients spatiaux selon les axes X et Y",
     codeDesc2:
-      "Accumulation des flux (D8) calculée à partir du DEM, représentant le nombre de cellules en amont drainant vers chaque pixel"
+      "Accumulation des flux (D8) calculée à partir du DEM, représentant le nombre de cellules en amont drainant vers chaque pixel",
+    codeLoadError: "Erreur de chargement du code"
   }
 };
 ---
@@ -450,11 +453,37 @@ const translations = {
       border-radius: 12px;
       font-family: Consolas, monospace;
       white-space: pre-wrap;
-      overflow: auto;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      overflow-x: auto;
+      overflow-y: auto;
       line-height: 1.55;
       max-height: 420px;
       font-size: 13px;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .code-card,
+    .code-block,
+    .pipeline-card,
+    .workflow-item,
+    .pdf-card,
+    .image-card {
+      min-width: 0;
+    }
+
+    .code-card h3,
+    .code-description,
+    .code-top a,
+    .pipeline-card h3,
+    .image-caption a,
+    .pdf-card h3,
+    .workflow-item h3,
+    .script-name,
+    .block p,
+    .block li {
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     @media (max-width: 900px) {
@@ -463,6 +492,48 @@ const translations = {
       .workflow-grid,
       .pipeline-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .block {
+        padding: 16px;
+        border-radius: 14px;
+      }
+
+      .block h2 {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .case-subtitle,
+      .code-card h3,
+      .pipeline-card h3,
+      .workflow-item h3,
+      .pdf-card h3 {
+        font-size: 17px;
+        line-height: 1.3;
+      }
+
+      .code-card,
+      .pipeline-card,
+      .workflow-item,
+      .pdf-card {
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .code-top {
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .code-block {
+        font-size: 11px;
+        padding: 12px;
       }
     }
   </style>
